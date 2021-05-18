@@ -79,7 +79,7 @@ class _AutorizationPageState extends State<AutorizationPage> {
                       ]),
                 ),
                 Container(
-                  child: this.widget.value == 1 ? SignUp() : SignIn(),
+                  child: SignIn(this.widget.value),
                 )
               ],
             ),

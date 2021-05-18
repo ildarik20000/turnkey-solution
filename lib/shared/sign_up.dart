@@ -12,12 +12,10 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   String _email;
   String _password;
-  String _userName;
   bool showLogin = true;
 
   Widget _input(
@@ -77,17 +75,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void _loginButtonAction() async {
-    _email = _emailController.text;
-    _password = _passwordController.text;
-
-    //if (_email.isEmpty || _password.isEmpty)
-    //return;
-    Get.to(MainScreen());
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => MainScreen()));
-  }
-
   Widget _button(String text, void func()) {
     return RaisedButton(
       splashColor: PlayColors.red,
@@ -111,8 +98,8 @@ class _SignUpState extends State<SignUp> {
       child: Column(
         children: [
           Container(
-            child: _form('Регистрация', _loginButtonAction),
-          )
+              //child: _form('Регистрация', _loginButtonAction),
+              )
         ],
       ),
     );

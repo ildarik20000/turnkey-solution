@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turnkey_solution/config/theme.dart';
+import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/screens/main.dart';
+import 'package:turnkey_solution/services/auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn();
-
+  double valueState;
+  SignIn(this.valueState);
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   String _email;
   String _password;
-  String _userName;
   bool showLogin = true;
+
+  AuthService _authService = AuthService();
 
   Widget _input(
       Icon icon, String hint, TextEditingController controller, bool obsecure) {
@@ -81,11 +84,48 @@ class _SignInState extends State<SignIn> {
     _email = _emailController.text;
     _password = _passwordController.text;
 
-    //if (_email.isEmpty || _password.isEmpty)
-    //return;
-    Get.to(MainScreen());
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => MainScreen()));
+    if (_email.isEmpty || _password.isEmpty) return;
+
+    UserApp user = await _authService.signInWithEmailAndPassword(
+        _email.trim(), _password.trim());
+    if (user == null) {
+      Fluttertoast.showToast(
+          msg: "Неверный логин или пароль",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      _emailController.clear();
+      _passwordController.clear();
+      Get.to(MainScreen());
+    }
+  }
+
+  void _registerButtonAction() async {
+    _email = _emailController.text;
+    _password = _passwordController.text;
+
+    if (_email.isEmpty || _password.isEmpty) return;
+
+    UserApp user = await _authService.registerWithEmailAndPassword(
+        _email.trim(), _password.trim());
+    if (user == null) {
+      Fluttertoast.showToast(
+          msg: "Неверный логин или пароль",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      _emailController.clear();
+      _passwordController.clear();
+      Get.to(MainScreen());
+    }
   }
 
   Widget _button(String text, void func()) {
@@ -111,8 +151,9 @@ class _SignInState extends State<SignIn> {
       child: Column(
         children: [
           Container(
-            child: _form('Войти', _loginButtonAction),
-          )
+              child: this.widget.valueState == 0
+                  ? _form('Войти', _loginButtonAction)
+                  : _form('Регистрация', _registerButtonAction))
         ],
       ),
     );
