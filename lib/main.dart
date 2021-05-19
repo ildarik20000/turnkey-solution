@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turnkey_solution/screens/autorization-page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:turnkey_solution/screens/main.dart';
+import 'package:turnkey_solution/services/controller.dart';
 
 import 'config/theme.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
+  MyApp({Key key}) : super(key: key);
+  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
               theme: playTheme,
               home: Scaffold(
                   backgroundColor: Color.fromRGBO(52, 54, 75, 1),
-                  body: AutorizationPage()),
+                  body: controller.isLoggedIn == false
+                      ? AutorizationPage()
+                      : MainScreen()),
             );
           }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:turnkey_solution/services/controller.dart';
 import 'package:turnkey_solution/shared/button_menu.dart';
 
 class MainScreen extends StatefulWidget {
@@ -10,7 +12,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int activeButton = 3;
-
+  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,19 +43,17 @@ class _MainScreenState extends State<MainScreen> {
                       });
                     },
                     text: 'TOURNAMENT',
-                    active: activeButton == 0 ? true : false,
-                    disabled: activeButton == 0 ? true : false,
+                    active: activeButton == 0,
+                    disabled: activeButton == 0,
                   ),
                   ButtonMenu(
                     icon: (Icons.insert_chart_outlined),
                     onPress: () {
-                      setState(() {
-                        activeButton = 1;
-                      });
+                      controller.loginIn();
                     },
                     text: 'RATING',
-                    active: activeButton == 1 ? true : false,
-                    disabled: activeButton == 1 ? true : false,
+                    active: activeButton == 1,
+                    disabled: activeButton == 1,
                   ),
                   ButtonMenu(
                     icon: (Icons.group_rounded),
@@ -63,8 +63,8 @@ class _MainScreenState extends State<MainScreen> {
                       });
                     },
                     text: 'FRIENDS',
-                    active: activeButton == 2 ? true : false,
-                    disabled: activeButton == 2 ? true : false,
+                    active: activeButton == 2,
+                    disabled: activeButton == 2,
                   ),
                   ButtonMenu(
                     icon: (Icons.person),
@@ -74,8 +74,8 @@ class _MainScreenState extends State<MainScreen> {
                       });
                     },
                     text: 'PROFILE',
-                    active: activeButton == 3 ? true : false,
-                    disabled: activeButton == 3 ? true : false,
+                    active: activeButton == 3,
+                    disabled: activeButton == 3,
                   ),
                 ],
               ),
