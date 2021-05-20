@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:turnkey_solution/services/controller.dart';
+import 'package:turnkey_solution/services/auth.dart';
 import 'package:turnkey_solution/shared/button_menu.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,7 +11,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int activeButton = 3;
-  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +47,10 @@ class _MainScreenState extends State<MainScreen> {
                   ButtonMenu(
                     icon: (Icons.insert_chart_outlined),
                     onPress: () {
-                      controller.loginIn();
+                      setState(() {
+                        activeButton = 1;
+                        AuthService().logOut();
+                      });
                     },
                     text: 'RATING',
                     active: activeButton == 1,

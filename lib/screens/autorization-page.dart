@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/shared/button_autorization.dart';
 import 'package:turnkey_solution/shared/sign_in.dart';
-import 'package:turnkey_solution/shared/sign_up.dart';
 
 class AutorizationPage extends StatefulWidget {
   double value = 0;

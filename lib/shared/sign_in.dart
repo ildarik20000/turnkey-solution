@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/screens/main.dart';
 import 'package:turnkey_solution/services/auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:turnkey_solution/services/controller.dart';
 
 class SignIn extends StatefulWidget {
   double valueState;
@@ -21,8 +19,6 @@ class _SignInState extends State<SignIn> {
   String _email;
   String _password;
   bool showLogin = true;
-
-  final controller = Get.put(Controller());
 
   AuthService _authService = AuthService();
 
@@ -103,8 +99,6 @@ class _SignInState extends State<SignIn> {
     } else {
       _emailController.clear();
       _passwordController.clear();
-      controller.loginIn();
-      Get.to(MainScreen());
     }
   }
 
@@ -128,7 +122,6 @@ class _SignInState extends State<SignIn> {
     } else {
       _emailController.clear();
       _passwordController.clear();
-      Get.to(MainScreen());
     }
   }
 
