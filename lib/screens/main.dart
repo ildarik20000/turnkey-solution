@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/screens/profile.dart';
 import 'package:turnkey_solution/services/auth.dart';
 import 'package:turnkey_solution/shared/button_menu.dart';
 
@@ -26,10 +27,11 @@ class _MainScreenState extends State<MainScreen> {
           color: Colors.white.withOpacity(0.8),
           shape: CircularNotchedRectangle(),
           child: Container(
-            height: 80,
+            height: 85,
+
             //color: Colors.white.withOpacity(0.5),
             child: Padding(
-              padding: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -40,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
                         activeButton = 0;
                       });
                     },
-                    text: 'TOURNAMENT',
+                    text: 'Полисы',
                     active: activeButton == 0,
                     disabled: activeButton == 0,
                   ),
@@ -52,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                         AuthService().logOut();
                       });
                     },
-                    text: 'RATING',
+                    text: 'Услуги',
                     active: activeButton == 1,
                     disabled: activeButton == 1,
                   ),
@@ -63,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                         activeButton = 2;
                       });
                     },
-                    text: 'FRIENDS',
+                    text: 'Поддержка',
                     active: activeButton == 2,
                     disabled: activeButton == 2,
                   ),
@@ -74,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                         activeButton = 3;
                       });
                     },
-                    text: 'PROFILE',
+                    text: 'Профиль',
                     active: activeButton == 3,
                     disabled: activeButton == 3,
                   ),
@@ -86,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.only(left: 12, right: 12, top: 10),
-            child: Stack(children: [
+            child: Stack(alignment: Alignment.bottomCenter, children: [
               Offstage(
                 offstage: activeButton != 0,
                 //child: Tournament(),
@@ -103,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Offstage(
                 offstage: activeButton != 3,
-                //child: Profile(),
+                child: Profile(),
               ),
             ]),
           ),

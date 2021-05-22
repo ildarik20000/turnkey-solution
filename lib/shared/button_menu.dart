@@ -116,7 +116,7 @@ class _ButtonMenuState extends State<ButtonMenu> {
                         style: TextStyle(
                             fontFamily: 'BebasBook',
                             color: PlayColors.black100,
-                            fontSize: this.widget.active ? 15 + sizeActive : 15,
+                            fontSize: this.widget.active ? 10 + sizeActive : 10,
                             fontWeight: FontWeight.bold),
                       ),
                     ]),
