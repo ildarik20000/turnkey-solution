@@ -14,6 +14,7 @@ class Input extends StatefulWidget {
   Widget bottomEl;
   Function onSubmit;
   TextInputAction textInputAction;
+  TextEditingController controller;
 
   Input(
       {this.placeholder = '',
@@ -27,14 +28,15 @@ class Input extends StatefulWidget {
       this.textInputAction,
       this.autoFocus = false,
       this.onSubmit,
-      this.secure = false});
+      this.secure = false,
+      this.controller,});
 
   @override
   _InputState createState() => _InputState();
 }
 
 class _InputState extends State<Input> {
-  final controller = TextEditingController(text: '');
+  final controller2 = TextEditingController(text: '');
 
   bool hasFocus = false;
 
@@ -60,7 +62,7 @@ class _InputState extends State<Input> {
                 children: <Widget>[
                   TextField(
                     onSubmitted: (s) {
-                      this.widget.onSubmit(s, this.controller);
+                      this.widget.onSubmit(s, this.widget.controller?? this.controller2);
                     },
                     autofocus: this.widget.autoFocus,
                     obscureText: this.widget.secure,
@@ -84,7 +86,7 @@ class _InputState extends State<Input> {
                     minLines: this.widget.minLines ?? 1,
                     maxLines: this.widget.minLines == null ? 1 : null,
                     style: TextStyle(fontSize: 18, color: PlayColors.black100),
-                    controller: this.controller,
+                    controller: this.widget.controller?? this.controller2,
                     cursorColor: PlayColors.red,
                     cursorHeight: 22,
                     enableInteractiveSelection: true,

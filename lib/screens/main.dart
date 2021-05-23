@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turnkey_solution/screens/profile.dart';
+import 'package:turnkey_solution/screens/support_page.dart';
 import 'package:turnkey_solution/services/auth.dart';
 import 'package:turnkey_solution/shared/button_menu.dart';
 
@@ -12,6 +13,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int activeButton = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
         //   ),
         //   onPressed: () {},
         // ),
+
         bottomNavigationBar: BottomAppBar(
           color: Colors.white.withOpacity(0.8),
           shape: CircularNotchedRectangle(),
@@ -51,7 +54,6 @@ class _MainScreenState extends State<MainScreen> {
                     onPress: () {
                       setState(() {
                         activeButton = 1;
-                        AuthService().logOut();
                       });
                     },
                     text: 'Услуги',
@@ -101,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Offstage(
                 offstage: activeButton != 2,
-                //child: Friends(),
+                child: SupportPage(),
               ),
               Offstage(
                 offstage: activeButton != 3,

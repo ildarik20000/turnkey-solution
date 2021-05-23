@@ -23,8 +23,8 @@ class _AutorizationPageState extends State<AutorizationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
+    return Scaffold(
+      body: Container(
         color: PlayColors.background,
         child: Center(
           child: Container(

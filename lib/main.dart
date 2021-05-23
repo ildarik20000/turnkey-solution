@@ -29,15 +29,13 @@ class MyApp extends StatelessWidget {
               child: MaterialApp(
                 title: 'Title',
                 theme: playTheme,
-                home: Scaffold(
-                    backgroundColor: Color.fromRGBO(52, 54, 75, 1),
-                    body: LandingPage()),
+                home: LandingPage(),
               ),
             );
           }
 
           // Otherwise, show something whilst waiting for initialization to complete
-          return null;
+          return Text("Loading");
         });
   }
 }

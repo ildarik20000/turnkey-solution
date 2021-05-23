@@ -3,7 +3,9 @@ import 'package:turnkey_solution/shared/input.dart';
 
 class TextInfo extends StatelessWidget {
   String text;
-  TextInfo({this.text});
+  String info;
+  TextEditingController controller;
+  TextInfo({this.text, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class TextInfo extends StatelessWidget {
             padding: EdgeInsets.only(left: 8),
             width: MediaQuery.of(context).size.width - 140,
             child: Input(
+              controller: this.controller,
               placeholder: this.text,
+              textInputAction: TextInputAction.search,
             ),
           )
         ],
