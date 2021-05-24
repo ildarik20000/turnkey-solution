@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/osago.dart';
+import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/data_city_car.dart';
+import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/shared/header.dart';
 import 'package:turnkey_solution/shared/profile_info.dart';
 
@@ -22,8 +25,21 @@ class _OsagoPageState extends State<OsagoPage> {
   String car = DataCityCar().car[0];
   String enginePower = DataCityCar().enginePower[0];
   String output = "0";
+  String checkName;
+  UserApp user;
+
+  DatabaseService db = DatabaseService();
+
+  @override
+  void initState() {
+    loadingInf();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    user = context.watch<UserApp>();
+
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
@@ -72,6 +88,7 @@ class _OsagoPageState extends State<OsagoPage> {
                       print(osago);
                       setState(() {
                         output = _out().toString();
+                        _saveInfo();
                       });
                     } else {
                       Fluttertoast.showToast(
@@ -326,5 +343,28 @@ class _OsagoPageState extends State<OsagoPage> {
           return 13950;
       }
     }
+  }
+
+  loadingInf() {
+    user = Provider.of<UserApp>(context, listen: false);
+    loadData();
+  }
+
+  loadData() async {
+    var stream = db.getInfo(user.getId);
+    stream.listen((List<UserApp> data) {
+      data.toList();
+      user = data[0];
+      user.osago = context.read<UserApp>().osago;
+    });
+  }
+
+  void _saveInfo() async {
+    user = Provider.of<UserApp>(context, listen: false);
+    user.osago.add(osago);
+
+    context.read<UserApp>().osago = user.osago;
+    await DatabaseService().adduserProfileInfo(user);
+    Navigator.pop(context);
   }
 }

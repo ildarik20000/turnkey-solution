@@ -72,7 +72,7 @@ class _ProfileState extends State<Profile> {
                         keyboardType: TextInputType.phone,
                       ),
                     ),
-                    _button("Сохранить", () => _saveInfo(user)),
+                    _button("Сохранить", () => _saveInfo()),
                     Divider(
                       height: 2,
                       color: Colors.white,
@@ -108,7 +108,11 @@ class _ProfileState extends State<Profile> {
     stream.listen((List<UserApp> data) {
       data.toList();
       user = data[0];
-
+      context.read<UserApp>().name = user.name;
+      context.read<UserApp>().seName = user.seName;
+      context.read<UserApp>().lastName = user.lastName;
+      context.read<UserApp>().number = user.number;
+      context.read<UserApp>().osago = user.osago;
       setState(() {
         _nameController.text = user.name ?? "";
         _seNameController.text = user.seName ?? "";
@@ -118,16 +122,23 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  void _saveInfo(UserApp user) async {
+  void _saveInfo() async {
     _name = _nameController.text ?? "";
     _seName = _seNameController.text ?? "";
     _lastName = _lastNameController.text ?? "";
     _number = _numberController.text ?? "";
+    user = Provider.of<UserApp>(context, listen: false);
+    context.read<UserApp>().name = _name;
+    context.read<UserApp>().seName = _seName;
+    context.read<UserApp>().lastName = _lastName;
+    context.read<UserApp>().number = _number;
+    context.read<UserApp>().osago = user.osago;
 
     user.name = _name;
     user.seName = _seName;
     user.lastName = _lastName;
     user.number = _number;
+    user.setData(user);
     print(user.getId);
     await DatabaseService().adduserProfileInfo(user);
   }

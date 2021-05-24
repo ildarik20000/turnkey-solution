@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:turnkey_solution/model/user.dart';
 
 class DatabaseService {
-  final CollectionReference _insuranceCollection =
-      FirebaseFirestore.instance.collection('insurance');
   final CollectionReference _userProfileInfo =
       FirebaseFirestore.instance.collection('user');
 

@@ -17,7 +17,7 @@ class Osago {
     };
   }
 
-  Osago.fromJson(String uid, Map<String, dynamic> data) {
+  Osago.fromJson(Map<String, dynamic> data) {
     city = data['city'];
     car = data['car'];
     date = data['date'];
