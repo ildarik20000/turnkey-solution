@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turnkey_solution/screens/profile.dart';
+import 'package:turnkey_solution/screens/services_page.dart';
 import 'package:turnkey_solution/screens/support_page.dart';
 import 'package:turnkey_solution/services/auth.dart';
 import 'package:turnkey_solution/shared/button_menu.dart';
@@ -98,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
               Offstage(
                 offstage: activeButton != 1,
                 child: Container(
-                  child: Text('Empty Body 1'),
+                  child: ServicesPage(),
                 ),
               ),
               Offstage(

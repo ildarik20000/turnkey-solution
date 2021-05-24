@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
@@ -66,7 +67,10 @@ class _ProfileState extends State<Profile> {
                     Container(
                       padding: EdgeInsets.only(top: 6),
                       child: TextInfo(
-                          text: "Телефон", controller: _numberController),
+                        text: "Телефон",
+                        controller: _numberController,
+                        keyboardType: TextInputType.phone,
+                      ),
                     ),
                     _button("Сохранить", () => _saveInfo(user)),
                     Divider(

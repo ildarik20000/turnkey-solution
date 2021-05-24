@@ -47,10 +47,12 @@ class ButtonWithIcon extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                  this.icon,
-                  color: this.color ?? PlayColors.placeholder,
-                ),
+                this.icon != null
+                    ? Icon(
+                        this.icon,
+                        color: this.color ?? PlayColors.placeholder,
+                      )
+                    : null,
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.only(left: 12, right: 12),
