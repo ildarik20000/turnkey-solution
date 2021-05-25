@@ -6,7 +6,7 @@ class Osago {
   int date;
   String enginePower;
   String standing;
-  Osago();
+  Osago({this.car, this.city, this.date, this.enginePower, this.standing});
   Map<String, dynamic> toMap() {
     return {
       "city": city,

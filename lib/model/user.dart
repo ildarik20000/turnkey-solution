@@ -79,7 +79,9 @@ class UserApp with ChangeNotifier {
     lastName = data['lastName'];
     number = data['number'];
     email = data['email'];
-    osago = (data['osago'] ?? []);
+    print(data['osago'][0]);
+    //osago = data["osago"].map((x) => Osago.fromJson(x));
+    osago = List<Osago>.from(data["osago"].map((i) => Osago.fromJson(i)));
   }
 
   String get getId => id;

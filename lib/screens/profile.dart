@@ -108,10 +108,10 @@ class _ProfileState extends State<Profile> {
     stream.listen((List<UserApp> data) {
       data.toList();
       user = data[0];
-      context.read<UserApp>().name = user.name;
-      context.read<UserApp>().seName = user.seName;
-      context.read<UserApp>().lastName = user.lastName;
-      context.read<UserApp>().number = user.number;
+      context.read<UserApp>().name = _name;
+      context.read<UserApp>().seName = _seName;
+      context.read<UserApp>().lastName = _lastName;
+      context.read<UserApp>().number = _number;
       context.read<UserApp>().osago = user.osago;
       setState(() {
         _nameController.text = user.name ?? "";
@@ -133,12 +133,6 @@ class _ProfileState extends State<Profile> {
     context.read<UserApp>().lastName = _lastName;
     context.read<UserApp>().number = _number;
     context.read<UserApp>().osago = user.osago;
-
-    user.name = _name;
-    user.seName = _seName;
-    user.lastName = _lastName;
-    user.number = _number;
-    user.setData(user);
     print(user.getId);
     await DatabaseService().adduserProfileInfo(user);
   }

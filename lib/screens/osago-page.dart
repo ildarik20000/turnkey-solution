@@ -53,7 +53,7 @@ class _OsagoPageState extends State<OsagoPage> {
                 TextInfo(
                   text: "Год выпуска",
                   widthWidget: 140,
-                  widthInput: 185,
+                  widthInput: 181,
                   controller: _dateController,
                   keyboardType: TextInputType.phone,
                 ),
@@ -61,7 +61,7 @@ class _OsagoPageState extends State<OsagoPage> {
                 TextInfo(
                   text: "Водительский стаж",
                   widthWidget: 140,
-                  widthInput: 185,
+                  widthInput: 181,
                   controller: _standingController,
                   keyboardType: TextInputType.phone,
                 ),
@@ -355,12 +355,15 @@ class _OsagoPageState extends State<OsagoPage> {
     stream.listen((List<UserApp> data) {
       data.toList();
       user = data[0];
-      user.osago = context.read<UserApp>().osago;
+      user.name = data[0].name;
+      user.seName = data[0].seName;
+      user.lastName = data[0].lastName;
+      user.number = data[0].number;
+      user.osago = data[0].osago;
     });
   }
 
   void _saveInfo() async {
-    user = Provider.of<UserApp>(context, listen: false);
     user.osago.add(osago);
 
     context.read<UserApp>().osago = user.osago;
