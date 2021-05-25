@@ -66,41 +66,73 @@ class _OsagoPageState extends State<OsagoPage> {
                   keyboardType: TextInputType.phone,
                 ),
                 Container(
-                  child: Text(
-                    output,
-                    style: TextStyle(color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Итоговая сумма ",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                      Text(
+                        output,
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      )
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  child: Container(
-                    height: 20,
-                    width: 20,
-                    child: Text("SAVE"),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _button("Купить", () {
+                        if (_dateController.text != "" &&
+                            _standingController.text != "") {
+                          osago.city = city;
+                          osago.car = car;
+                          osago.date = int.parse(_dateController.text);
+                          osago.enginePower = enginePower;
+                          osago.standing = _standingController.text;
+                          print(osago);
+                          setState(() {
+                            _saveInfo();
+                          });
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Заполните все поля",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
+                      }),
+                      _button("Вычислить", () {
+                        if (_dateController.text != "" &&
+                            _standingController.text != "") {
+                          osago.city = city;
+                          osago.car = car;
+                          osago.date = int.parse(_dateController.text);
+                          osago.enginePower = enginePower;
+                          osago.standing = _standingController.text;
+                          print(osago);
+                          setState(() {
+                            loadData();
+                            output = _out().toString();
+                          });
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Заполните все поля",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
+                      }),
+                    ],
                   ),
-                  onTap: () {
-                    if (_dateController.text != "" &&
-                        _standingController.text != "") {
-                      osago.city = city;
-                      osago.car = car;
-                      osago.date = int.parse(_dateController.text);
-                      osago.enginePower = enginePower;
-                      osago.standing = _standingController.text;
-                      print(osago);
-                      setState(() {
-                        output = _out().toString();
-                        _saveInfo();
-                      });
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Заполните все поля",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    }
-                  },
                 )
               ],
             ),
@@ -138,6 +170,7 @@ class _OsagoPageState extends State<OsagoPage> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
+                    output = _out().toString();
                     city = newValue;
                   });
                 },
@@ -370,4 +403,24 @@ class _OsagoPageState extends State<OsagoPage> {
     await DatabaseService().adduserProfileInfo(user);
     Navigator.pop(context);
   }
+}
+
+Widget _button(String text, void func()) {
+  return Container(
+    margin: EdgeInsets.only(top: 10),
+    child: RaisedButton(
+      splashColor: PlayColors.red,
+      highlightColor: PlayColors.red,
+      color: PlayColors.buttonBackground,
+      child: Text(text,
+          style: TextStyle(
+              fontFamily: 'BebasBook',
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 30)),
+      onPressed: () {
+        func();
+      },
+    ),
+  );
 }
