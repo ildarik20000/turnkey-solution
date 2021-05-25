@@ -233,7 +233,7 @@ class _KaskoPageState extends State<KaskoPage> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
-                    output = _out().toString();
+                    //output = _out().toString();
                     city = newValue;
                   });
                 },

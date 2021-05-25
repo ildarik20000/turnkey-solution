@@ -163,8 +163,8 @@ class _OsagoPageState extends State<OsagoPage> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
-                    output = _out().toString();
                     city = newValue;
+                    //output = _out().toString();
                   });
                 },
                 items: DataCityCar()

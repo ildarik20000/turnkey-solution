@@ -36,6 +36,10 @@ class _MyServicesState extends State<MyServices> {
     super.initState();
   }
 
+  final List<Tab> myTabs = <Tab>[
+    Tab(text: 'ОСАГО'),
+    Tab(text: 'КАСКО'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,17 +101,19 @@ class _MyServicesState extends State<MyServices> {
                     Container(
                       height: 400,
                       child: Expanded(
-                        child: ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: user.osago.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return _blockInfo(
-                                user.kasko[index].car,
-                                user.kasko[index].city,
-                                user.kasko[index].date,
-                                user.kasko[index].price ?? "",
-                              );
-                            }),
+                        child: user.kasko.length > 0
+                            ? ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: user.kasko.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return _blockInfo(
+                                    user.kasko[index].car,
+                                    user.kasko[index].city,
+                                    user.kasko[index].date,
+                                    user.kasko[index].price ?? "",
+                                  );
+                                })
+                            : Container(),
                       ),
                     )
                   ],
