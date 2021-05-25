@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/screens/my_services.dart';
 import 'package:turnkey_solution/screens/profile.dart';
 import 'package:turnkey_solution/screens/services_page.dart';
 import 'package:turnkey_solution/screens/support_page.dart';
@@ -94,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Stack(alignment: Alignment.bottomCenter, children: [
               Offstage(
                 offstage: activeButton != 0,
-                //child: Tournament(),
+                child: MyServices(),
               ),
               Offstage(
                 offstage: activeButton != 1,

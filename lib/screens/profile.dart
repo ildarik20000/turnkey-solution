@@ -113,6 +113,7 @@ class _ProfileState extends State<Profile> {
       context.read<UserApp>().lastName = _lastName;
       context.read<UserApp>().number = _number;
       context.read<UserApp>().osago = user.osago;
+      context.read<UserApp>().kasko = user.kasko;
       setState(() {
         _nameController.text = user.name ?? "";
         _seNameController.text = user.seName ?? "";
@@ -133,6 +134,7 @@ class _ProfileState extends State<Profile> {
     context.read<UserApp>().lastName = _lastName;
     context.read<UserApp>().number = _number;
     context.read<UserApp>().osago = user.osago;
+    context.read<UserApp>().kasko = user.kasko;
     print(user.getId);
     await DatabaseService().adduserProfileInfo(user);
   }

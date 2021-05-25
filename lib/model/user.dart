@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:turnkey_solution/model/kasko.dart';
 import 'package:turnkey_solution/model/osago.dart';
 
 class UserApp with ChangeNotifier {
@@ -10,6 +11,7 @@ class UserApp with ChangeNotifier {
   String _number;
   String _email;
   List<Osago> _osago = [];
+  List<Kasko> _kasko = [];
 
   UserApp.fromFirebase(User user) {
     id = user.uid;
@@ -60,6 +62,12 @@ class UserApp with ChangeNotifier {
     notifyListeners();
   }
 
+  List<Kasko> get kasko => _kasko;
+  void set kasko(List<Kasko> kaskoList) {
+    _kasko = kaskoList;
+    notifyListeners();
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "name": name,
@@ -68,7 +76,8 @@ class UserApp with ChangeNotifier {
       "number": number,
       "id": id,
       "email": email,
-      "osago": osago.map((o) => o.toMap()).toList()
+      "osago": osago.map((o) => o.toMap()).toList(),
+      "kasko": kasko.map((o) => o.toMap()).toList(),
     };
   }
 
@@ -79,9 +88,11 @@ class UserApp with ChangeNotifier {
     lastName = data['lastName'];
     number = data['number'];
     email = data['email'];
-    print(data['osago'][0]);
-    //osago = data["osago"].map((x) => Osago.fromJson(x));
-    osago = List<Osago>.from(data["osago"].map((i) => Osago.fromJson(i)));
+
+    if (data["osago"] != null)
+      osago = List<Osago>.from(data["osago"].map((i) => Osago.fromJson(i)));
+    if (data["kasko"] != null)
+      kasko = List<Kasko>.from(data["kasko"].map((i) => Kasko.fromJson(i)));
   }
 
   String get getId => id;

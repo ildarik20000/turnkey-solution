@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/screens/kasko_page.dart';
 import 'package:turnkey_solution/screens/osago-page.dart';
 import 'package:turnkey_solution/shared/button_icon.dart';
 import 'package:turnkey_solution/shared/header.dart';
@@ -13,7 +14,7 @@ class BuyServices extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(8),
-          child: Column(
+          child: ListView(
             children: [
               Header(
                 "Купить полис",
@@ -30,7 +31,10 @@ class BuyServices extends StatelessWidget {
               ButtonWithIcon(
                 text: "КАСКО",
                 icon: Icons.remove,
-                onPress: () {},
+                onPress: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => KaskoPage()));
+                },
               ),
               ButtonWithIcon(
                 text: "ДМС",

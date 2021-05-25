@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
+import 'package:turnkey_solution/model/kasko.dart';
 import 'package:turnkey_solution/model/osago.dart';
 import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/data_city_car.dart';
@@ -9,25 +10,28 @@ import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/shared/header.dart';
 import 'package:turnkey_solution/shared/profile_info.dart';
 
-class OsagoPage extends StatefulWidget {
-  OsagoPage({Key key}) : super(key: key);
+class KaskoPage extends StatefulWidget {
+  KaskoPage({Key key}) : super(key: key);
 
   @override
-  _OsagoPageState createState() => _OsagoPageState();
+  _KaskoPageState createState() => _KaskoPageState();
 }
 
-class _OsagoPageState extends State<OsagoPage> {
+enum SingingCharacter { buy, notBuy }
+
+class _KaskoPageState extends State<KaskoPage> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _standingController = TextEditingController();
 
-  Osago osago = new Osago();
+  Kasko kasko = new Kasko();
   String city = DataCityCar().city[0];
   String car = DataCityCar().car[0];
   String enginePower = DataCityCar().enginePower[0];
   String output = "0";
   String checkName;
   UserApp user;
-
+  bool credit = false;
+  SingingCharacter _character = SingingCharacter.notBuy;
   DatabaseService db = DatabaseService();
 
   @override
@@ -47,9 +51,9 @@ class _OsagoPageState extends State<OsagoPage> {
             padding: EdgeInsets.all(8),
             child: ListView(
               children: [
-                Header("ОСАГО", back: true),
-                _osagoInfoCity(),
-                _osagoInfoCar(),
+                Header("КАСКО", back: true),
+                _kaskoInfoCity(),
+                _kaskoInfoCar(),
                 TextInfo(
                   text: "Год выпуска",
                   widthWidget: 140,
@@ -57,7 +61,70 @@ class _OsagoPageState extends State<OsagoPage> {
                   controller: _dateController,
                   keyboardType: TextInputType.phone,
                 ),
-                _osagoEnginePower(),
+                Container(
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 140,
+                        child: Text(
+                          "Информация о кредите ",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'без кредита',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                ),
+                                leading: Radio<SingingCharacter>(
+                                  value: SingingCharacter.notBuy,
+                                  groupValue: _character,
+                                  onChanged: (SingingCharacter value) {
+                                    setState(() {
+                                      _character = value;
+                                      credit = false;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'с кредитом',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                ),
+                                leading: Radio<SingingCharacter>(
+                                  value: SingingCharacter.buy,
+                                  groupValue: _character,
+                                  onChanged: (SingingCharacter value) {
+                                    setState(() {
+                                      _character = value;
+                                      credit = true;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                _kaskoEnginePower(),
                 TextInfo(
                   text: "Водительский стаж",
                   widthWidget: 140,
@@ -87,12 +154,12 @@ class _OsagoPageState extends State<OsagoPage> {
                       _button("Купить", () {
                         if (_dateController.text != "" &&
                             _standingController.text != "") {
-                          osago.city = city;
-                          osago.car = car;
-                          osago.date = int.parse(_dateController.text);
-                          osago.enginePower = enginePower;
-                          osago.standing = _standingController.text;
-                          osago.price = output;
+                          kasko.city = city;
+                          kasko.car = car;
+                          kasko.date = int.parse(_dateController.text);
+                          kasko.enginePower = enginePower;
+                          kasko.standing = _standingController.text;
+                          kasko.price = output;
                           setState(() {
                             _saveInfo();
                           });
@@ -111,7 +178,10 @@ class _OsagoPageState extends State<OsagoPage> {
                         if (_dateController.text != "" &&
                             _standingController.text != "") {
                           setState(() {
-                            output = _out().toString();
+                            if (credit)
+                              output = (_out() + 500).toString();
+                            else
+                              output = (_out()).toString();
                           });
                         } else {
                           Fluttertoast.showToast(
@@ -133,7 +203,7 @@ class _OsagoPageState extends State<OsagoPage> {
         ));
   }
 
-  Widget _osagoInfoCity() {
+  Widget _kaskoInfoCity() {
     return Container(
       child: Container(
         child: Row(
@@ -183,7 +253,7 @@ class _OsagoPageState extends State<OsagoPage> {
     );
   }
 
-  Widget _osagoInfoCar() {
+  Widget _kaskoInfoCar() {
     return Container(
       margin: EdgeInsets.only(top: 10),
       child: Container(
@@ -233,7 +303,7 @@ class _OsagoPageState extends State<OsagoPage> {
     );
   }
 
-  Widget _osagoEnginePower() {
+  Widget _kaskoEnginePower() {
     return Container(
       margin: EdgeInsets.only(top: 10),
       child: Container(
@@ -381,6 +451,7 @@ class _OsagoPageState extends State<OsagoPage> {
     stream.listen((List<UserApp> data) {
       data.toList();
       user = data[0];
+
       user.name = data[0].name;
       user.seName = data[0].seName;
       user.lastName = data[0].lastName;
@@ -397,7 +468,7 @@ class _OsagoPageState extends State<OsagoPage> {
   }
 
   void _saveInfo() async {
-    user.osago.add(osago);
+    user.kasko.add(kasko);
     var stream = db.getInfo(user.getId);
     stream.listen((List<UserApp> data) {
       data.toList();
@@ -415,7 +486,8 @@ class _OsagoPageState extends State<OsagoPage> {
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
     });
-    context.read<UserApp>().osago = user.osago;
+
+    context.read<UserApp>().kasko = user.kasko;
     await DatabaseService().adduserProfileInfo(user);
     Navigator.pop(context);
   }

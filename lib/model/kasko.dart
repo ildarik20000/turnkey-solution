@@ -1,13 +1,13 @@
 import 'package:turnkey_solution/services/data_city_car.dart';
 
-class Osago {
+class Kasko {
   String city;
   String car;
   int date;
   String enginePower;
   String standing;
   String price;
-  Osago({this.car, this.city, this.date, this.enginePower, this.standing});
+  Kasko({this.car, this.city, this.date, this.enginePower, this.standing});
   Map<String, dynamic> toMap() {
     return {
       "city": city,
@@ -19,7 +19,7 @@ class Osago {
     };
   }
 
-  Osago.fromJson(Map<String, dynamic> data) {
+  Kasko.fromJson(Map<String, dynamic> data) {
     city = data['city'];
     car = data['car'];
     date = data['date'];
