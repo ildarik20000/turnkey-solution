@@ -161,6 +161,10 @@ class _KaskoPageState extends State<KaskoPage> {
                           kasko.standing = _standingController.text;
                           kasko.price = output;
                           setState(() {
+                            if (credit)
+                              output = (_out() + 500).toString();
+                            else
+                              output = (_out()).toString();
                             _saveInfo();
                           });
                         } else {

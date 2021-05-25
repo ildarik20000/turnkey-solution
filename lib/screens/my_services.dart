@@ -17,15 +17,6 @@ class MyServices extends StatefulWidget {
 }
 
 class _MyServicesState extends State<MyServices> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _seNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _numberController = TextEditingController();
-
-  String _name;
-  String _seName;
-  String _lastName;
-  String _number;
   UserApp user;
   bool loading = false;
   DatabaseService db = DatabaseService();
@@ -36,36 +27,37 @@ class _MyServicesState extends State<MyServices> {
     super.initState();
   }
 
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'ОСАГО'),
-    Tab(text: 'КАСКО'),
-  ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(8),
-        child: Container(
-          child: ListView(
-            children: [
-              Header("Мои полисы"),
-              Container(
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        backgroundColor: PlayColors.background,
+        appBar: AppBar(
+          backgroundColor: PlayColors.background,
+          title: const Text('Мои полисы'),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: "ОСАГО",
+              ),
+              Tab(
+                text: "КАСКО",
+              ),
+              Tab(
+                text: "ДМС",
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: Container(
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 10),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "ОСАГО",
-                        style: TextStyle(
-                          color: PlayColors.red,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 400,
                       child: Expanded(
                         child: ListView.builder(
                             padding: const EdgeInsets.all(8),
@@ -83,23 +75,12 @@ class _MyServicesState extends State<MyServices> {
                   ],
                 ),
               ),
-              Container(
+            ),
+            Center(
+              child: Container(
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 10),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "КАСКО",
-                        style: TextStyle(
-                          color: PlayColors.red,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 400,
                       child: Expanded(
                         child: user.kasko.length > 0
                             ? ListView.builder(
@@ -119,9 +100,35 @@ class _MyServicesState extends State<MyServices> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+            Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                      child: Expanded(
+                        child: user.dms.length > 0
+                            ? ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: user.dms.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return _blockDmsInfo(
+                                    user.dms[index].city,
+                                    user.dms[index].age,
+                                    user.dms[index].price ?? "",
+                                  );
+                                })
+                            : Container(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   loadingInf() {
@@ -135,13 +142,6 @@ class _MyServicesState extends State<MyServices> {
       data.toList();
       user = data[0];
     });
-  }
-
-  Widget _textCard(String text) {
-    return Text(
-      text,
-      style: TextStyle(fontSize: 18, color: Colors.black87),
-    );
   }
 
   Widget _blockInfo(String car, String city, int date, String price) {
@@ -176,6 +176,50 @@ class _MyServicesState extends State<MyServices> {
             ),
             Text(
               "Год автомобиля: " + date.toString(),
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "Цена: " + price,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _blockDmsInfo(String city, int age, String price) {
+    return Container(
+      margin: EdgeInsets.only(top: 9),
+      //alignment: Alignment.topLeft,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(9),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Город: " + city,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "Возраст: " + age.toString(),
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 20,

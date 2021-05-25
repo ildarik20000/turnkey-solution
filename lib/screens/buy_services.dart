@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/screens/dms_page.dart';
 import 'package:turnkey_solution/screens/kasko_page.dart';
 import 'package:turnkey_solution/screens/osago-page.dart';
 import 'package:turnkey_solution/shared/button_icon.dart';
@@ -39,15 +40,13 @@ class BuyServices extends StatelessWidget {
               ButtonWithIcon(
                 text: "ДМС",
                 icon: Icons.remove,
-                onPress: () {},
+                onPress: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DmsPage()));
+                },
               ),
               ButtonWithIcon(
                 text: "Страхование от несчатного случая",
-                icon: Icons.remove,
-                onPress: () {},
-              ),
-              ButtonWithIcon(
-                text: "Страхование имущества",
                 icon: Icons.remove,
                 onPress: () {},
               ),

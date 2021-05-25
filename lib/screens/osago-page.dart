@@ -94,6 +94,7 @@ class _OsagoPageState extends State<OsagoPage> {
                           osago.standing = _standingController.text;
                           osago.price = output;
                           setState(() {
+                            output = _out().toString();
                             _saveInfo();
                           });
                         } else {
