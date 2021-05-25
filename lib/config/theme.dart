@@ -5,7 +5,7 @@ ThemeData playTheme =
 
 class PlayColors {
   static Color background = Color.fromRGBO(52, 54, 75, 1);
-  static Color red = Color.fromRGBO(237, 43, 70, 1);
+  static Color red = Color.fromRGBO(178, 34, 34, 1);
 
   static Color black100 = Color.fromRGBO(40, 40, 40, 1);
   static Color black50 = Color.fromRGBO(40, 40, 40, 0.5);

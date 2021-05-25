@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:turnkey_solution/screens/dms_page.dart';
 import 'package:turnkey_solution/screens/kasko_page.dart';
 import 'package:turnkey_solution/screens/osago-page.dart';
+import 'package:turnkey_solution/screens/sons_page.dart';
 import 'package:turnkey_solution/shared/button_icon.dart';
 import 'package:turnkey_solution/shared/header.dart';
 
@@ -48,7 +49,10 @@ class BuyServices extends StatelessWidget {
               ButtonWithIcon(
                 text: "Страхование от несчатного случая",
                 icon: Icons.remove,
-                onPress: () {},
+                onPress: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SonsPage()));
+                },
               ),
             ],
           ),

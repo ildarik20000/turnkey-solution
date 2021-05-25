@@ -154,6 +154,10 @@ class _KaskoPageState extends State<KaskoPage> {
                       _button("Купить", () {
                         if (_dateController.text != "" &&
                             _standingController.text != "") {
+                          if (credit)
+                            output = (_out() + 500).toString();
+                          else
+                            output = (_out()).toString();
                           kasko.city = city;
                           kasko.car = car;
                           kasko.date = int.parse(_dateController.text);
@@ -462,12 +466,16 @@ class _KaskoPageState extends State<KaskoPage> {
       user.number = data[0].number;
       user.osago = data[0].osago;
       user.kasko = data[0].kasko;
+      user.dms = data[0].dms;
+      user.sons = data[0].sons;
       context.read<UserApp>().name = user.name;
       context.read<UserApp>().seName = user.seName;
       context.read<UserApp>().lastName = user.lastName;
       context.read<UserApp>().number = user.number;
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
+      context.read<UserApp>().dms = user.dms;
+      context.read<UserApp>().sons = user.sons;
     });
   }
 
@@ -483,12 +491,16 @@ class _KaskoPageState extends State<KaskoPage> {
       user.number = data[0].number;
       user.osago = data[0].osago;
       user.kasko = data[0].kasko;
+      user.dms = data[0].dms;
+      user.sons = data[0].sons;
       context.read<UserApp>().name = user.name;
       context.read<UserApp>().seName = user.seName;
       context.read<UserApp>().lastName = user.lastName;
       context.read<UserApp>().number = user.number;
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
+      context.read<UserApp>().dms = user.dms;
+      context.read<UserApp>().sons = user.sons;
     });
 
     context.read<UserApp>().kasko = user.kasko;

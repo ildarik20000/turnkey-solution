@@ -30,8 +30,8 @@ class _MyServicesState extends State<MyServices> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
+      initialIndex: 0,
+      length: 4,
       child: Scaffold(
         backgroundColor: PlayColors.background,
         appBar: AppBar(
@@ -48,6 +48,9 @@ class _MyServicesState extends State<MyServices> {
               Tab(
                 text: "ДМС",
               ),
+              Tab(
+                text: "СОНС",
+              ),
             ],
           ),
         ),
@@ -59,42 +62,19 @@ class _MyServicesState extends State<MyServices> {
                   children: [
                     Container(
                       child: Expanded(
-                        child: ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: user.osago.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return _blockInfo(
-                                user.osago[index].car,
-                                user.osago[index].city,
-                                user.osago[index].date,
-                                user.osago[index].price ?? "",
-                              );
-                            }),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                child: Column(
-                  children: [
-                    Container(
-                      child: Expanded(
-                        child: user.kasko.length > 0
+                        child: user.osago.length > 0
                             ? ListView.builder(
                                 padding: const EdgeInsets.all(8),
-                                itemCount: user.kasko.length,
+                                itemCount: user.osago.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return _blockInfo(
-                                    user.kasko[index].car,
-                                    user.kasko[index].city,
-                                    user.kasko[index].date,
-                                    user.kasko[index].price ?? "",
+                                    user.osago[index].car,
+                                    user.osago[index].city,
+                                    user.osago[index].date,
+                                    user.osago[index].price ?? "",
                                   );
                                 })
-                            : Container(),
+                            : _notInfo(),
                       ),
                     )
                   ],
@@ -107,19 +87,69 @@ class _MyServicesState extends State<MyServices> {
                   children: [
                     Container(
                       child: Expanded(
-                        child: user.dms.length > 0
-                            ? ListView.builder(
-                                padding: const EdgeInsets.all(8),
-                                itemCount: user.dms.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return _blockDmsInfo(
-                                    user.dms[index].city,
-                                    user.dms[index].age,
-                                    user.dms[index].price ?? "",
-                                  );
-                                })
-                            : Container(),
-                      ),
+                          child: user.kasko.length > 0
+                              ? ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: user.kasko.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return _blockInfo(
+                                      user.kasko[index].car,
+                                      user.kasko[index].city,
+                                      user.kasko[index].date,
+                                      user.kasko[index].price ?? "",
+                                    );
+                                  })
+                              : _notInfo()),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                      child: Expanded(
+                          child: user.dms.length > 0
+                              ? ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: user.dms.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return _blockDmsInfo(
+                                      user.dms[index].city,
+                                      user.dms[index].age,
+                                      user.dms[index].price ?? "",
+                                    );
+                                  })
+                              : _notInfo()),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                      child: Expanded(
+                          child: user.sons.length > 0
+                              ? ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: user.sons.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return _blockSonsInfo(
+                                      user.sons[index].city,
+                                      user.sons[index].age,
+                                      user.sons[index].sport,
+                                      user.sons[index].price ?? "",
+                                    );
+                                  })
+                              : _notInfo()),
                     )
                   ],
                 ),
@@ -142,6 +172,19 @@ class _MyServicesState extends State<MyServices> {
       data.toList();
       user = data[0];
     });
+  }
+
+  Widget _notInfo() {
+    return Container(
+      alignment: Alignment.center,
+      child: Center(
+        child: Text(
+          "У вас пока нет действующих полисов данного типа",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 22, color: PlayColors.red),
+        ),
+      ),
+    );
   }
 
   Widget _blockInfo(String car, String city, int date, String price) {
@@ -220,6 +263,58 @@ class _MyServicesState extends State<MyServices> {
             ),
             Text(
               "Возраст: " + age.toString(),
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "Цена: " + price,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _blockSonsInfo(String city, int age, bool sport, String price) {
+    return Container(
+      margin: EdgeInsets.only(top: 9),
+      //alignment: Alignment.topLeft,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(9),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Город: " + city,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "Возраст: " + age.toString(),
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              sport ? "Занимается спортом" : "Не занимается спортом",
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 20,

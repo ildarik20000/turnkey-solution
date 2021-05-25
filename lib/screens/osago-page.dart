@@ -87,6 +87,7 @@ class _OsagoPageState extends State<OsagoPage> {
                       _button("Купить", () {
                         if (_dateController.text != "" &&
                             _standingController.text != "") {
+                          output = _out().toString();
                           osago.city = city;
                           osago.car = car;
                           osago.date = int.parse(_dateController.text);
@@ -388,12 +389,16 @@ class _OsagoPageState extends State<OsagoPage> {
       user.number = data[0].number;
       user.osago = data[0].osago;
       user.kasko = data[0].kasko;
+      user.dms = data[0].dms;
+      user.sons = data[0].sons;
       context.read<UserApp>().name = user.name;
       context.read<UserApp>().seName = user.seName;
       context.read<UserApp>().lastName = user.lastName;
       context.read<UserApp>().number = user.number;
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
+      context.read<UserApp>().dms = user.dms;
+      context.read<UserApp>().sons = user.sons;
     });
   }
 
@@ -409,12 +414,16 @@ class _OsagoPageState extends State<OsagoPage> {
       user.number = data[0].number;
       user.osago = data[0].osago;
       user.kasko = data[0].kasko;
+      user.dms = data[0].dms;
+      user.sons = data[0].sons;
       context.read<UserApp>().name = user.name;
       context.read<UserApp>().seName = user.seName;
       context.read<UserApp>().lastName = user.lastName;
       context.read<UserApp>().number = user.number;
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
+      context.read<UserApp>().dms = user.dms;
+      context.read<UserApp>().sons = user.sons;
     });
     context.read<UserApp>().osago = user.osago;
     await DatabaseService().adduserProfileInfo(user);

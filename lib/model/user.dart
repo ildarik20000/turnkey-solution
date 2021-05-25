@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:turnkey_solution/model/dms.dart';
 import 'package:turnkey_solution/model/kasko.dart';
 import 'package:turnkey_solution/model/osago.dart';
+import 'package:turnkey_solution/model/sons.dart';
 
 class UserApp with ChangeNotifier {
   String id;
@@ -14,6 +15,7 @@ class UserApp with ChangeNotifier {
   List<Osago> _osago = [];
   List<Kasko> _kasko = [];
   List<Dms> _dms = [];
+  List<Sons> _sons = [];
 
   UserApp.fromFirebase(User user) {
     id = user.uid;
@@ -76,6 +78,12 @@ class UserApp with ChangeNotifier {
     notifyListeners();
   }
 
+  List<Sons> get sons => _sons;
+  void set sons(List<Sons> sonsList) {
+    _sons = sonsList;
+    notifyListeners();
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "name": name,
@@ -87,6 +95,7 @@ class UserApp with ChangeNotifier {
       "osago": osago.map((o) => o.toMap()).toList(),
       "kasko": kasko.map((o) => o.toMap()).toList(),
       "dms": dms.map((o) => o.toMap()).toList(),
+      "sons": sons.map((o) => o.toMap()).toList(),
     };
   }
 
@@ -104,6 +113,8 @@ class UserApp with ChangeNotifier {
       kasko = List<Kasko>.from(data["kasko"].map((i) => Kasko.fromJson(i)));
     if (data["dms"] != null)
       dms = List<Dms>.from(data["dms"].map((i) => Dms.fromJson(i)));
+    if (data["sons"] != null)
+      sons = List<Sons>.from(data["sons"].map((i) => Sons.fromJson(i)));
   }
 
   String get getId => id;

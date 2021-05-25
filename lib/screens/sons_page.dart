@@ -3,31 +3,35 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/dms.dart';
+import 'package:turnkey_solution/model/sons.dart';
 import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/data_city_car.dart';
 import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/shared/header.dart';
 import 'package:turnkey_solution/shared/profile_info.dart';
 
-class DmsPage extends StatefulWidget {
-  DmsPage({Key key}) : super(key: key);
+class SonsPage extends StatefulWidget {
+  SonsPage({Key key}) : super(key: key);
 
   @override
-  _DmsPageState createState() => _DmsPageState();
+  _SonsPageState createState() => _SonsPageState();
 }
 
-class _DmsPageState extends State<DmsPage> {
+enum SingingCharacter1 { yes, no }
+enum SingingCharacter2 { first, second }
+
+class _SonsPageState extends State<SonsPage> {
   TextEditingController _ageController = TextEditingController();
 
-  Dms dms = new Dms();
+  Sons sons = new Sons();
   String city = DataCityCar().city[0];
-  bool first = false;
-  bool second = false;
-  bool third = false;
+  bool sport = true;
+  bool summ = true;
   String output = "0";
   UserApp user;
   DatabaseService db = DatabaseService();
-
+  SingingCharacter1 _sport = SingingCharacter1.yes;
+  SingingCharacter2 _summ = SingingCharacter2.first;
   @override
   void initState() {
     loadingInf();
@@ -45,7 +49,7 @@ class _DmsPageState extends State<DmsPage> {
             padding: EdgeInsets.all(8),
             child: ListView(
               children: [
-                Header("ДМС", back: true),
+                Header("Страхование от\nнесчастного случая", back: true),
                 _kaskoInfoCity(),
                 TextInfo(
                   text: "Ваш возраст",
@@ -54,76 +58,128 @@ class _DmsPageState extends State<DmsPage> {
                   controller: _ageController,
                   keyboardType: TextInputType.phone,
                 ),
-                Text(
-                  'Оказываемые услуги',
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                Container(
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 140,
+                        child: Text(
+                          "Занятие спортом ",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'Да',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                ),
+                                leading: Radio<SingingCharacter1>(
+                                  value: SingingCharacter1.yes,
+                                  groupValue: _sport,
+                                  onChanged: (SingingCharacter1 value) {
+                                    setState(() {
+                                      _sport = value;
+                                      sport = true;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'Нет',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.white),
+                                ),
+                                leading: Radio<SingingCharacter1>(
+                                  value: SingingCharacter1.no,
+                                  groupValue: _sport,
+                                  onChanged: (SingingCharacter1 value) {
+                                    setState(() {
+                                      _sport = value;
+                                      sport = true;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    value: first,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        first = value;
-                                      });
-                                    }),
-                                Text(
-                                  'Поликлиническая помощь',
+                      Container(
+                        width: 140,
+                        child: Text(
+                          "Занятие спортом ",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'До 100000',
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.white),
                                 ),
-                              ],
+                                leading: Radio<SingingCharacter2>(
+                                  value: SingingCharacter2.first,
+                                  groupValue: _summ,
+                                  onChanged: (SingingCharacter2 value) {
+                                    setState(() {
+                                      _summ = value;
+                                      summ = true;
+                                    });
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    value: second,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        second = value;
-                                      });
-                                    }),
-                                Text(
-                                  'Стоматологическая помощь',
+                            Container(
+                              width: 190,
+                              height: 60,
+                              child: ListTile(
+                                title: const Text(
+                                  'Более 100000',
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.white),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    value: third,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        third = value;
-                                      });
-                                    }),
-                                Text(
-                                  'Стационарная помощь',
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                leading: Radio<SingingCharacter2>(
+                                  value: SingingCharacter2.second,
+                                  groupValue: _summ,
+                                  onChanged: (SingingCharacter2 value) {
+                                    setState(() {
+                                      _summ = value;
+                                      summ = true;
+                                    });
+                                  },
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -150,11 +206,13 @@ class _DmsPageState extends State<DmsPage> {
                       _button("Купить", () {
                         if (_ageController.text != "") {
                           output = (_out()).toString();
-                          dms.city = city;
+                          sons.city = city;
 
-                          dms.age = int.parse(_ageController.text);
+                          sons.age = int.parse(_ageController.text);
+                          sons.sport = sport;
+                          sons.summ = summ;
 
-                          dms.price = output;
+                          sons.price = output;
                           setState(() {
                             output = (_out()).toString();
                             _saveInfo();
@@ -247,40 +305,46 @@ class _DmsPageState extends State<DmsPage> {
 
   int _out() {
     int age = int.parse(_ageController.text);
-    bool first = this.first;
-    bool second = this.second;
-    bool third = this.third;
+    bool summ = this.summ;
+    bool sport = this.sport;
     int out = 0;
-    if (age < 6) {
-      if (first) out += 15873;
-      if (second) out += 8760;
-      if (third) out += 4875;
-    } else if (age < 13) {
-      if (first) out += 14876;
-      if (second) out += 8569;
-      if (third) out += 4322;
-    } else if (age < 18) {
-      if (first) out += 14277;
-      if (second) out += 7968;
-      if (third) out += 3976;
-    } else if (age < 36) {
-      if (first) out += 16893;
-      if (second) out += 8992;
-      if (third) out += 5871;
+    if (age < 26) {
+      if (sport) {
+        if (summ)
+          return 5690;
+        else
+          return 6560;
+      } else {
+        if (summ)
+          return 3590;
+        else
+          return 4590;
+      }
     } else if (age < 51) {
-      if (first) out += 20878;
-      if (second) out += 10765;
-      if (third) out += 6872;
-    } else if (age < 66) {
-      if (first) out += 22871;
-      if (second) out += 10764;
-      if (third) out += 7879;
+      if (sport) {
+        if (summ)
+          return 4980;
+        else
+          return 6980;
+      } else {
+        if (summ)
+          return 3980;
+        else
+          return 4980;
+      }
     } else {
-      if (first) out += 24870;
-      if (second) out += 11768;
-      if (third) out += 8876;
+      if (sport) {
+        if (summ)
+          return 7590;
+        else
+          return 8960;
+      } else {
+        if (summ)
+          return 5980;
+        else
+          return 6980;
+      }
     }
-    return out;
   }
 
   loadingInf() {
@@ -314,7 +378,7 @@ class _DmsPageState extends State<DmsPage> {
   }
 
   void _saveInfo() async {
-    user.dms.add(dms);
+    user.sons.add(sons);
     var stream = db.getInfo(user.getId);
     stream.listen((List<UserApp> data) {
       data.toList();
@@ -326,6 +390,7 @@ class _DmsPageState extends State<DmsPage> {
       user.osago = data[0].osago;
       user.kasko = data[0].kasko;
       user.dms = data[0].dms;
+      user.sons = data[0].sons;
       context.read<UserApp>().name = user.name;
       context.read<UserApp>().seName = user.seName;
       context.read<UserApp>().lastName = user.lastName;
@@ -333,9 +398,10 @@ class _DmsPageState extends State<DmsPage> {
       context.read<UserApp>().osago = user.osago;
       context.read<UserApp>().kasko = user.kasko;
       context.read<UserApp>().dms = user.dms;
+      context.read<UserApp>().sons = user.sons;
     });
 
-    context.read<UserApp>().dms = user.dms;
+    context.read<UserApp>().sons = user.sons;
     await DatabaseService().adduserProfileInfo(user);
     Navigator.pop(context);
   }
