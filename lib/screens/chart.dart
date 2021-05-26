@@ -5,9 +5,9 @@ import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/database.dart';
 
 /// !!Step1: prepare the data to plot.
-var _data1 = <double, double>{2: 10, 3: 15, 4: 10, 5: 27, 6: 20, 7: 0};
-var _data2 = <double, double>{2: 8, 3: 12, 4: 20, 5: 22, 6: 16, 7: 0};
-var _data3 = <double, double>{2: 12, 3: 17, 4: 10, 5: 20, 6: 18, 7: 0};
+var _data1 = <double, double>{2: 10, 3: 15, 4: 10, 5: 27, 6: 0};
+var _data2 = <double, double>{2: 8, 3: 12, 4: 20, 5: 22, 6: 0};
+var _data3 = <double, double>{2: 12, 3: 17, 4: 10, 5: 20, 6: 0};
 
 class FlLineChartExample extends StatefulWidget {
   const FlLineChartExample({Key key}) : super(key: key);
@@ -40,15 +40,18 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   @override
   Widget build(BuildContext context) {
     if (userNotBuy.length > 0) {
+      osago = 0;
+      kasko = 0;
+      dms = 0;
       for (int i = 0; i < userNotBuy.length; i++) {
         kasko += userNotBuy[i].kasko.length;
         osago += userNotBuy[i].osago.length;
         dms += userNotBuy[i].dms.length;
       }
       setState(() {
-        _data1[7] = osago;
-        _data2[7] = kasko;
-        _data3[7] = dms;
+        _data1[6] = osago;
+        _data2[6] = kasko;
+        _data3[6] = dms;
       });
     }
 

@@ -51,7 +51,7 @@ class _AutorizationPageState extends State<AutorizationPage> {
                           width: 100,
                           child: Button(
                             text: "Войти",
-                            fontSizeText: 20,
+                            fontSizeText: 19,
                             tapDetectorSize: 59,
                             tapDetector: this.widget.value == 0,
                             onPress: () {
@@ -64,7 +64,7 @@ class _AutorizationPageState extends State<AutorizationPage> {
                         Container(
                           width: 130,
                           child: Button(
-                            fontSizeText: 20,
+                            fontSizeText: 19,
                             tapDetectorSize: 119,
                             tapDetector: this.widget.value == 1,
                             text: "Регистрация",
