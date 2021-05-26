@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
+import 'package:turnkey_solution/screens/chart.dart';
 import 'package:turnkey_solution/services/auth.dart';
 import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/shared/button_icon.dart';
@@ -100,7 +101,9 @@ class _AdminPageState extends State<AdminPage> {
               ),
             ),
             Center(
-              child: Container(),
+              child: Container(
+                child: FlLineChartExample(),
+              ),
             ),
           ],
         ),
