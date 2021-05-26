@@ -18,4 +18,10 @@ class DatabaseService {
         .map((DocumentSnapshot doc) => UserApp.fromJson(userId, doc.data()))
         .toList());
   }
+
+  Stream<List<UserApp>> getInfoAll() {
+    return _userProfileInfo.snapshots().map((QuerySnapshot data) => data.docs
+        .map((DocumentSnapshot doc) => UserApp.fromJsonAll(doc.data()))
+        .toList());
+  }
 }

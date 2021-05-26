@@ -112,7 +112,7 @@ class _SignInState extends State<SignIn> {
         _email.trim(), _password.trim());
     if (user == null) {
       Fluttertoast.showToast(
-          msg: "Неверный логин или пароль",
+          msg: "Пароль должен содержать буквы и цифры",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,

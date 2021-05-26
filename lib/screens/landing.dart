@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/model/user.dart';
+import 'package:turnkey_solution/screens/admin_page.dart';
 import 'package:turnkey_solution/screens/autorization-page.dart';
 import 'package:turnkey_solution/screens/main.dart';
 
@@ -11,6 +12,11 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserApp user = Provider.of<UserApp>(context);
     final bool isLoggedIn = user != null;
-    return isLoggedIn ? MainScreen() : AutorizationPage();
+
+    return isLoggedIn
+        ? user.email == "admin@admin.ru"
+            ? AdminPage()
+            : MainScreen()
+        : AutorizationPage();
   }
 }

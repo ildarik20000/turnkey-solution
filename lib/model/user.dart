@@ -17,9 +17,22 @@ class UserApp with ChangeNotifier {
   List<Dms> _dms = [];
   List<Sons> _sons = [];
 
+  // UserApp(UserApp user) {
+  //   this.dms = user.dms;
+  //   this.id = user.id;
+  //   this.name = user.name;
+  //   this.seName = user.seName;
+  //   this.lastName = user.lastName;
+  //   this.number = user.number;
+  //   this.email = user.email;
+  //   this.osago = user.osago;
+  //   this.kasko = user.kasko;
+  //   this.sons = user.sons;
+  // }
+
   UserApp.fromFirebase(User user) {
     id = user.uid;
-    _email = user.email;
+    email = user.email;
     name = name;
     seName = name;
   }
@@ -101,6 +114,24 @@ class UserApp with ChangeNotifier {
 
   UserApp.fromJson(String uid, Map<String, dynamic> data) {
     id = uid;
+    name = data['name'];
+    seName = data['seName'];
+    lastName = data['lastName'];
+    number = data['number'];
+    email = data['email'];
+
+    if (data["osago"] != null)
+      osago = List<Osago>.from(data["osago"].map((i) => Osago.fromJson(i)));
+    if (data["kasko"] != null)
+      kasko = List<Kasko>.from(data["kasko"].map((i) => Kasko.fromJson(i)));
+    if (data["dms"] != null)
+      dms = List<Dms>.from(data["dms"].map((i) => Dms.fromJson(i)));
+    if (data["sons"] != null)
+      sons = List<Sons>.from(data["sons"].map((i) => Sons.fromJson(i)));
+  }
+
+  UserApp.fromJsonAll(Map<String, dynamic> data) {
+    id = data['id'];
     name = data['name'];
     seName = data['seName'];
     lastName = data['lastName'];

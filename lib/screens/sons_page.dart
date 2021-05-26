@@ -128,7 +128,7 @@ class _SonsPageState extends State<SonsPage> {
                       Container(
                         width: 140,
                         child: Text(
-                          "Занятие спортом ",
+                          "Стоимость покрытия",
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
