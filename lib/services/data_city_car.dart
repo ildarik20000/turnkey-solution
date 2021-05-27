@@ -53,5 +53,9 @@ class DataCityCar {
     "УАЗ",
     "Pegout"
   ];
-  List<String> enginePower = ["0-100", "101-199", "200+"];
+  List<String> enginePower = [
+    "до 100 л.с.",
+    "от 101 до 199 л.с.",
+    "свыше 200 л.с."
+  ];
 }

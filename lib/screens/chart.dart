@@ -8,6 +8,7 @@ import 'package:turnkey_solution/services/database.dart';
 var _data1 = <double, double>{2: 10, 3: 15, 4: 10, 5: 27, 6: 0};
 var _data2 = <double, double>{2: 8, 3: 12, 4: 20, 5: 22, 6: 0};
 var _data3 = <double, double>{2: 12, 3: 17, 4: 10, 5: 20, 6: 0};
+var _data4 = <double, double>{2: 7, 3: 10, 4: 12, 5: 18, 6: 0};
 
 class FlLineChartExample extends StatefulWidget {
   const FlLineChartExample({Key key}) : super(key: key);
@@ -28,6 +29,7 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   double osago = 0;
   double kasko = 0;
   double dms = 0;
+  double sons = 0;
   bool loading = false;
   DatabaseService db = DatabaseService();
 
@@ -43,15 +45,18 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
       osago = 0;
       kasko = 0;
       dms = 0;
+      sons = 0;
       for (int i = 0; i < userNotBuy.length; i++) {
         kasko += userNotBuy[i].kasko.length;
         osago += userNotBuy[i].osago.length;
         dms += userNotBuy[i].dms.length;
+        sons += userNotBuy[i].sons.length;
       }
       setState(() {
         _data1[6] = osago;
         _data2[6] = kasko;
         _data3[6] = dms;
+        _data4[6] = sons;
       });
     }
 
@@ -64,6 +69,10 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
     ];
     final spots3 = <FlSpot>[
       for (final entry in _data3.entries) FlSpot(entry.key, entry.value)
+    ];
+
+    final spots4 = <FlSpot>[
+      for (final entry in _data4.entries) FlSpot(entry.key, entry.value)
     ];
 
     /// !!Step3: prepare LineChartData
@@ -99,6 +108,16 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
           belowBarData:
               BarAreaData(show: _showBelowArea, colors: [Colors.green[200]]),
         ),
+
+        LineChartBarData(
+          spots: spots4,
+          colors: [Colors.purple],
+          barWidth: 6,
+          isCurved: _isCurved,
+          dotData: FlDotData(show: _showDot),
+          belowBarData:
+              BarAreaData(show: _showBelowArea, colors: [Colors.purple[200]]),
+        ),
       ],
 // ! Behavior when touching the chart:
       lineTouchData: LineTouchData(
@@ -124,7 +143,8 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
       axisTitleData: FlAxisTitleData(
         show: true,
         bottomTitle: AxisTitle(titleText: 'Месяца', showTitle: true),
-        leftTitle: AxisTitle(titleText: 'Количество', showTitle: true),
+        leftTitle: AxisTitle(
+            titleText: 'Количество пробретенных полисов', showTitle: true),
       ),
 // ! Ticks in the axis
       titlesData: FlTitlesData(
@@ -209,6 +229,7 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
           _buildInfoLine("Осаго ", Colors.blue),
           _buildInfoLine("Каско ", Colors.red),
           _buildInfoLine("Дмс ", Colors.green),
+          _buildInfoLine("СОНС ", Colors.purple),
           SwitchListTile(
             title: const Text('Изогнутые линии'),
             onChanged: (bool val) => setState(() => this._isCurved = val),

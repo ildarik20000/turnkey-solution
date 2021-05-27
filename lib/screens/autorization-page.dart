@@ -34,7 +34,7 @@ class _AutorizationPageState extends State<AutorizationPage> {
               children: [
                 Container(
                   child: Text(
-                    "готовое решение",
+                    "Доступное страхование",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 28,

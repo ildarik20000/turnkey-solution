@@ -109,7 +109,7 @@ class _SonsPageState extends State<SonsPage> {
                                   onChanged: (SingingCharacter1 value) {
                                     setState(() {
                                       _sport = value;
-                                      sport = true;
+                                      sport = false;
                                     });
                                   },
                                 ),
@@ -172,7 +172,7 @@ class _SonsPageState extends State<SonsPage> {
                                   onChanged: (SingingCharacter2 value) {
                                     setState(() {
                                       _summ = value;
-                                      summ = true;
+                                      summ = false;
                                     });
                                   },
                                 ),

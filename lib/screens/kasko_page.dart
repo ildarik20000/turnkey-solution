@@ -371,14 +371,14 @@ class _KaskoPageState extends State<KaskoPage> {
     String lvl = _standingController.text;
     int out;
     if (mark == "ГАЗ" || mark == "Москвич" || mark == "УАЗ" || mark == "Lada") {
-      if (power == "0-100") {
+      if (power == DataCityCar().enginePower[0]) {
         if (year < 2000) {
           return 6980;
         } else if (year < 2018)
           return 7350;
         else
           return 7690;
-      } else if (power == "101-199") {
+      } else if (power == DataCityCar().enginePower[1]) {
         if (year < 2000) {
           return 7960;
         } else if (year < 2018)
@@ -401,14 +401,14 @@ class _KaskoPageState extends State<KaskoPage> {
         mark == "Isuzu" ||
         mark == "Lexus" ||
         mark == "Jeep") {
-      if (power == "0-100") {
+      if (power == DataCityCar().enginePower[0]) {
         if (year < 2000) {
           return 12680;
         } else if (year < 2018)
           return 14590;
         else
           return 14980;
-      } else if (power == "101-199") {
+      } else if (power == DataCityCar().enginePower[1]) {
         if (year < 2000) {
           return 16900;
         } else if (year < 2018)
@@ -424,14 +424,14 @@ class _KaskoPageState extends State<KaskoPage> {
           return 27970;
       }
     } else {
-      if (power == "0-100") {
+      if (power == DataCityCar().enginePower[0]) {
         if (year < 2000) {
           return 9060;
         } else if (year < 2018)
           return 10360;
         else
           return 12690;
-      } else if (power == "101-199") {
+      } else if (power == DataCityCar().enginePower[1]) {
         if (year < 2000) {
           return 11690;
         } else if (year < 2018)
