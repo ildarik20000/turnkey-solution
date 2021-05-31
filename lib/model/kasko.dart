@@ -7,7 +7,9 @@ class Kasko {
   String enginePower;
   String standing;
   String price;
+  String time;
   Kasko({this.car, this.city, this.date, this.enginePower, this.standing});
+
   Map<String, dynamic> toMap() {
     return {
       "city": city,
@@ -16,6 +18,7 @@ class Kasko {
       "enginePower": enginePower,
       "standing": standing,
       "price": price,
+      "time": time,
     };
   }
 
@@ -26,5 +29,6 @@ class Kasko {
     enginePower = data['enginePower'];
     standing = data['standing'];
     price = data['price'];
+    time = data['time'] ?? "";
   }
 }

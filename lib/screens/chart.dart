@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/database.dart';
+import 'package:turnkey_solution/services/parse.dart';
 
 /// !!Step1: prepare the data to plot.
 var _data1 = <double, double>{2: 10, 3: 15, 4: 10, 5: 27, 6: 0};
@@ -33,6 +35,8 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   bool loading = false;
   DatabaseService db = DatabaseService();
 
+  String dropdownValue = "По месяцам";
+
   @override
   void initState() {
     loadingInf();
@@ -42,22 +46,7 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   @override
   Widget build(BuildContext context) {
     if (userNotBuy.length > 0) {
-      osago = 0;
-      kasko = 0;
-      dms = 0;
-      sons = 0;
-      for (int i = 0; i < userNotBuy.length; i++) {
-        kasko += userNotBuy[i].kasko.length;
-        osago += userNotBuy[i].osago.length;
-        dms += userNotBuy[i].dms.length;
-        sons += userNotBuy[i].sons.length;
-      }
-      setState(() {
-        _data1[6] = osago;
-        _data2[6] = kasko;
-        _data3[6] = dms;
-        _data4[6] = sons;
-      });
+      selectDayWeek();
     }
 
     /// !!Step2: convert data into a list of [FlSpot].
@@ -142,7 +131,12 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
 // ! Axis title
       axisTitleData: FlAxisTitleData(
         show: true,
-        bottomTitle: AxisTitle(titleText: 'Месяца', showTitle: true),
+        bottomTitle: AxisTitle(
+            titleText: dropdownValue == "По месяцам"
+                ? 'Месяца'
+                : ParseData()
+                    .parseWeekRus((DateFormat.MMM().format(DateTime.now()))),
+            showTitle: true),
         leftTitle: AxisTitle(
             titleText: 'Количество пробретенных полисов', showTitle: true),
       ),
@@ -150,32 +144,17 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
-            showTitles: true, // this is false by-default.
+          showTitles: true, // this is false by-default.
 // ! Decides how to show bottom titles,
 // here we convert double to month names
-            getTitles: (double val) => DateFormat.MMM()
-                        .format(DateTime(2021, val.toInt())) ==
-                    "Feb"
-                ? "Февраль"
-                : DateFormat.MMM().format(DateTime(2021, val.toInt())) == "Mar"
-                    ? "Март"
-                    : DateFormat.MMM().format(DateTime(2021, val.toInt())) ==
-                            "Apr"
-                        ? "Апрель"
-                        : DateFormat.MMM()
-                                    .format(DateTime(2021, val.toInt())) ==
-                                "May"
-                            ? "Май"
-                            : DateFormat.MMM()
-                                        .format(DateTime(2021, val.toInt())) ==
-                                    "Jun"
-                                ? "Июнь"
-                                : DateFormat.MMM().format(
-                                            DateTime(2021, val.toInt())) ==
-                                        "Jul"
-                                    ? "Июль"
-                                    : DateFormat.MMM()
-                                        .format(DateTime(2021, val.toInt()))),
+          getTitles: (double val) => dropdownValue == "По месяцам"
+              ? DateFormat.MMM().format(DateTime(2021, val.toInt())) == "Feb"
+                  ? "Февраль"
+                  : ParseData().parseWeekRus(
+                      DateFormat.MMM().format(DateTime(2021, val.toInt())))
+              : DateFormat.d()
+                  .format(DateTime(2021, DateTime.now().month, val.toInt())),
+        ),
         leftTitles: SideTitles(
           showTitles: true,
 // ! Decides how to show left titles,
@@ -189,8 +168,42 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
     );
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 40, right: 20, left: 10),
-        child: LineChart(lineChartData),
+        padding: const EdgeInsets.only(right: 20, left: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 60),
+              alignment: Alignment.topCenter,
+              height: 40,
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: PlayColors.red),
+                underline: Container(
+                  height: 2,
+                  color: PlayColors.buttonBackground,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                    selectDayWeek();
+                  });
+                },
+                items: <String>["По дням", "По месяцам"]
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            Expanded(child: LineChart(lineChartData)),
+          ],
+        ),
       ),
       bottomNavigationBar: _buildControlWidgets(),
     );
@@ -265,6 +278,121 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
       setState(() {
         userNotBuy = data;
       });
+    });
+  }
+
+  selectDayWeek() {
+    var nowData1 = <double, double>{}; //dms
+    var nowData2 = <double, double>{}; //kasko
+    var nowData3 = <double, double>{}; //osago
+    var nowData4 = <double, double>{}; //sons
+    int week = DateTime.now().month;
+    if (dropdownValue == "По дням") {
+      for (int i = 0; i < userNotBuy.length; i++) {
+        for (int k = 0; k < userNotBuy[i].dms.length; k++) {
+          if (ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) == week) {
+            nowData1[(ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData1[
+                    (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                        0.0)]++
+                : nowData1[
+                    (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                        0.0)] = 1;
+          }
+        }
+        for (int k = 0; k < userNotBuy[i].kasko.length; k++) {
+          if (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) == week) {
+            nowData2[(ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData2[
+                    (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
+                        0.0)]++
+                : nowData2[
+                    (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
+                        0.0)] = 1;
+          }
+        }
+        for (int k = 0; k < userNotBuy[i].osago.length; k++) {
+          if (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) == week) {
+            nowData3[(ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData3[
+                    (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
+                        0.0)]++
+                : nowData3[
+                    (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
+                        0.0)] = 1;
+          }
+        }
+        for (int k = 0; k < userNotBuy[i].sons.length; k++) {
+          if (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) == week) {
+            nowData4[(ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData4[
+                    (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                        0.0)]++
+                : nowData4[
+                    (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                        0.0)] = 1;
+          }
+        }
+      }
+    } else {
+      for (int i = 0; i < userNotBuy.length; i++) {
+        for (int k = 0; k < userNotBuy[i].dms.length; k++) {
+          nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                      0.0)] !=
+                  null
+              ? nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                  0.0)]++
+              : nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                  0.0)] = 1;
+        }
+        for (int k = 0; k < userNotBuy[i].kasko.length; k++) {
+          nowData2[(ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                      0.0)] !=
+                  null
+              ? nowData2[
+                  (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                      0.0)]++
+              : nowData2[
+                  (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                      0.0)] = 1;
+        }
+        for (int k = 0; k < userNotBuy[i].osago.length; k++) {
+          nowData3[(ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                      0.0)] !=
+                  null
+              ? nowData3[
+                  (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                      0.0)]++
+              : nowData3[
+                  (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                      0.0)] = 1;
+        }
+        for (int k = 0; k < userNotBuy[i].sons.length; k++) {
+          nowData4[(ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                      0.0)] !=
+                  null
+              ? nowData4[
+                  (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                      0.0)]++
+              : nowData4[
+                  (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                      0.0)] = 1;
+        }
+      }
+    }
+    setState(() {
+      _data1 = nowData3;
+      _data2 = nowData2;
+      _data3 = nowData1;
+      _data4 = nowData4;
     });
   }
 }

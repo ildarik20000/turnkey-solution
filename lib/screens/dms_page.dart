@@ -153,6 +153,7 @@ class _DmsPageState extends State<DmsPage> {
                           dms.city = city;
 
                           dms.age = int.parse(_ageController.text);
+                          dms.time = DateTime.now().toString();
 
                           dms.price = output;
                           setState(() {

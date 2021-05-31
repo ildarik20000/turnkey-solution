@@ -7,6 +7,7 @@ class Osago {
   String enginePower;
   String standing;
   String price;
+  String time;
   Osago({this.car, this.city, this.date, this.enginePower, this.standing});
   Map<String, dynamic> toMap() {
     return {
@@ -16,6 +17,7 @@ class Osago {
       "enginePower": enginePower,
       "standing": standing,
       "price": price,
+      "time": time,
     };
   }
 
@@ -26,5 +28,6 @@ class Osago {
     enginePower = data['enginePower'];
     standing = data['standing'];
     price = data['price'];
+    time = data['time'] ?? "";
   }
 }

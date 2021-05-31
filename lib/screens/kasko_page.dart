@@ -164,6 +164,7 @@ class _KaskoPageState extends State<KaskoPage> {
                           kasko.enginePower = enginePower;
                           kasko.standing = _standingController.text;
                           kasko.price = output;
+                          kasko.time = DateTime.now().toString();
                           setState(() {
                             if (credit)
                               output = (_out() + 500).toString();

@@ -6,6 +6,7 @@ class Sons {
   bool sport;
   bool summ;
   String price;
+  String time;
   Sons({this.age, this.city});
   Map<String, dynamic> toMap() {
     return {
@@ -14,6 +15,7 @@ class Sons {
       "sport": sport,
       "summ": summ,
       "price": price,
+      "time": time,
     };
   }
 
@@ -23,5 +25,6 @@ class Sons {
     sport = data['sport'];
     summ = data['summ'];
     price = data['price'];
+    time = data['time'] ?? "";
   }
 }

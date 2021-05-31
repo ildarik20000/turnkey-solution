@@ -211,7 +211,7 @@ class _SonsPageState extends State<SonsPage> {
                           sons.age = int.parse(_ageController.text);
                           sons.sport = sport;
                           sons.summ = summ;
-
+                          sons.time = DateTime.now().toString();
                           sons.price = output;
                           setState(() {
                             output = (_out()).toString();

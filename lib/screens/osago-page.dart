@@ -94,6 +94,7 @@ class _OsagoPageState extends State<OsagoPage> {
                           osago.enginePower = enginePower;
                           osago.standing = _standingController.text;
                           osago.price = output;
+                          osago.time = DateTime.now().toString();
                           setState(() {
                             output = _out().toString();
                             _saveInfo();
