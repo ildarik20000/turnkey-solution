@@ -7,10 +7,10 @@ import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/services/parse.dart';
 
 /// !!Step1: prepare the data to plot.
-var _data1 = <double, double>{2: 10, 3: 15, 4: 10, 5: 27, 6: 0};
-var _data2 = <double, double>{2: 8, 3: 12, 4: 20, 5: 22, 6: 0};
-var _data3 = <double, double>{2: 12, 3: 17, 4: 10, 5: 20, 6: 0};
-var _data4 = <double, double>{2: 7, 3: 10, 4: 12, 5: 18, 6: 0};
+var _data1 = <double, double>{};
+var _data2 = <double, double>{};
+var _data3 = <double, double>{};
+var _data4 = <double, double>{};
 
 class FlLineChartExample extends StatefulWidget {
   const FlLineChartExample({Key key}) : super(key: key);
@@ -47,6 +47,13 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   Widget build(BuildContext context) {
     if (userNotBuy.length > 0) {
       selectDayWeek();
+    } else {
+      setState(() {
+        _data1 = <double, double>{1: 0};
+        _data2 = <double, double>{1: 0};
+        _data3 = <double, double>{1: 0};
+        _data4 = <double, double>{1: 0};
+      });
     }
 
     /// !!Step2: convert data into a list of [FlSpot].
@@ -148,10 +155,8 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
 // ! Decides how to show bottom titles,
 // here we convert double to month names
           getTitles: (double val) => dropdownValue == "По месяцам"
-              ? DateFormat.MMM().format(DateTime(2021, val.toInt())) == "Feb"
-                  ? "Февраль"
-                  : ParseData().parseWeekRus(
-                      DateFormat.MMM().format(DateTime(2021, val.toInt())))
+              ? ParseData().parseWeekRus(
+                  DateFormat.MMM().format(DateTime(2021, val.toInt())))
               : DateFormat.d()
                   .format(DateTime(2021, DateTime.now().month, val.toInt())),
         ),
@@ -389,10 +394,11 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
       }
     }
     setState(() {
-      _data1 = nowData3;
-      _data2 = nowData2;
-      _data3 = nowData1;
-      _data4 = nowData4;
+      _data1 = nowData3.isNotEmpty ? nowData3 : {1: 0};
+      _data2 = nowData2.isNotEmpty ? nowData2 : {1: 0};
+      _data3 = nowData1.isNotEmpty ? nowData1 : {1: 0};
+      _data4 = nowData4.isNotEmpty ? nowData4 : {1: 0};
+      print(_data1);
     });
   }
 }
