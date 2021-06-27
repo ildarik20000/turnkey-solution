@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
+import 'package:turnkey_solution/services/data_city_car.dart';
 import 'package:turnkey_solution/services/database.dart';
 import 'package:turnkey_solution/services/parse.dart';
 
@@ -36,6 +37,7 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
   DatabaseService db = DatabaseService();
 
   String dropdownValue = "По месяцам";
+  String city = "Все города";
 
   @override
   void initState() {
@@ -180,6 +182,36 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
             Container(
               margin: EdgeInsets.only(top: 60),
               alignment: Alignment.topCenter,
+              //height: 40,
+              child: DropdownButton<String>(
+                value: city,
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: PlayColors.red),
+                underline: Container(
+                  height: 2,
+                  color: PlayColors.buttonBackground,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    city = newValue;
+                    selectDayWeek();
+                  });
+                },
+                items: DataCityCar()
+                    .citySearch
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              //margin: EdgeInsets.only(top: 60),
+              alignment: Alignment.topCenter,
               height: 40,
               child: DropdownButton<String>(
                 value: dropdownValue,
@@ -292,107 +324,129 @@ class _FlLineChartExampleState extends State<FlLineChartExample> {
     var nowData3 = <double, double>{}; //osago
     var nowData4 = <double, double>{}; //sons
     int week = DateTime.now().month;
+
     if (dropdownValue == "По дням") {
       for (int i = 0; i < userNotBuy.length; i++) {
         for (int k = 0; k < userNotBuy[i].dms.length; k++) {
           if (ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) == week) {
-            nowData1[(ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
-                        0.0)] !=
-                    null
-                ? nowData1[
-                    (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
-                        0.0)]++
-                : nowData1[
-                    (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
-                        0.0)] = 1;
+            if (city == "Все города" || userNotBuy[i].dms[k].city == city) {
+              nowData1[(ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                          0.0)] !=
+                      null
+                  ? nowData1[
+                      (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                          0.0)]++
+                  : nowData1[
+                      (ParseData().parseTimeDay(userNotBuy[i].dms[k].time) +
+                          0.0)] = 1;
+            }
           }
         }
         for (int k = 0; k < userNotBuy[i].kasko.length; k++) {
           if (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) == week) {
-            nowData2[(ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
-                        0.0)] !=
-                    null
-                ? nowData2[
-                    (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
-                        0.0)]++
-                : nowData2[
-                    (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
-                        0.0)] = 1;
+            if (city == "Все города" || userNotBuy[i].kasko[k].city == city) {
+              nowData2[(ParseData()
+                              .parseTimeDay(userNotBuy[i].kasko[k].time) +
+                          0.0)] !=
+                      null
+                  ? nowData2[
+                      (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
+                          0.0)]++
+                  : nowData2[
+                      (ParseData().parseTimeDay(userNotBuy[i].kasko[k].time) +
+                          0.0)] = 1;
+            }
           }
         }
         for (int k = 0; k < userNotBuy[i].osago.length; k++) {
           if (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) == week) {
-            nowData3[(ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
-                        0.0)] !=
-                    null
-                ? nowData3[
-                    (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
-                        0.0)]++
-                : nowData3[
-                    (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
-                        0.0)] = 1;
+            if (city == "Все города" || userNotBuy[i].osago[k].city == city) {
+              nowData3[(ParseData()
+                              .parseTimeDay(userNotBuy[i].osago[k].time) +
+                          0.0)] !=
+                      null
+                  ? nowData3[
+                      (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
+                          0.0)]++
+                  : nowData3[
+                      (ParseData().parseTimeDay(userNotBuy[i].osago[k].time) +
+                          0.0)] = 1;
+            }
           }
         }
         for (int k = 0; k < userNotBuy[i].sons.length; k++) {
           if (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) == week) {
-            nowData4[(ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
-                        0.0)] !=
-                    null
-                ? nowData4[
-                    (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
-                        0.0)]++
-                : nowData4[
-                    (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
-                        0.0)] = 1;
+            if (city == "Все города" || userNotBuy[i].sons[k].city == city) {
+              nowData4[(ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                          0.0)] !=
+                      null
+                  ? nowData4[
+                      (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                          0.0)]++
+                  : nowData4[
+                      (ParseData().parseTimeDay(userNotBuy[i].sons[k].time) +
+                          0.0)] = 1;
+            }
           }
         }
       }
     } else {
       for (int i = 0; i < userNotBuy.length; i++) {
         for (int k = 0; k < userNotBuy[i].dms.length; k++) {
-          nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
-                      0.0)] !=
-                  null
-              ? nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
-                  0.0)]++
-              : nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
-                  0.0)] = 1;
+          if (city == "Все города" || userNotBuy[i].dms[k].city == city) {
+            nowData1[(ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData1[
+                    (ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                        0.0)]++
+                : nowData1[
+                    (ParseData().parseTimeWeek(userNotBuy[i].dms[k].time) +
+                        0.0)] = 1;
+          }
         }
         for (int k = 0; k < userNotBuy[i].kasko.length; k++) {
-          nowData2[(ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
-                      0.0)] !=
-                  null
-              ? nowData2[
-                  (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
-                      0.0)]++
-              : nowData2[
-                  (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
-                      0.0)] = 1;
+          if (city == "Все города" || userNotBuy[i].kasko[k].city == city) {
+            nowData2[(ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData2[
+                    (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                        0.0)]++
+                : nowData2[
+                    (ParseData().parseTimeWeek(userNotBuy[i].kasko[k].time) +
+                        0.0)] = 1;
+          }
         }
         for (int k = 0; k < userNotBuy[i].osago.length; k++) {
-          nowData3[(ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
-                      0.0)] !=
-                  null
-              ? nowData3[
-                  (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
-                      0.0)]++
-              : nowData3[
-                  (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
-                      0.0)] = 1;
+          if (city == "Все города" || userNotBuy[i].osago[k].city == city) {
+            nowData3[(ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData3[
+                    (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                        0.0)]++
+                : nowData3[
+                    (ParseData().parseTimeWeek(userNotBuy[i].osago[k].time) +
+                        0.0)] = 1;
+          }
         }
         for (int k = 0; k < userNotBuy[i].sons.length; k++) {
-          nowData4[(ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
-                      0.0)] !=
-                  null
-              ? nowData4[
-                  (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
-                      0.0)]++
-              : nowData4[
-                  (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
-                      0.0)] = 1;
+          if (city == "Все города" || userNotBuy[i].dms[k].city == city) {
+            nowData4[(ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                        0.0)] !=
+                    null
+                ? nowData4[
+                    (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                        0.0)]++
+                : nowData4[
+                    (ParseData().parseTimeWeek(userNotBuy[i].sons[k].time) +
+                        0.0)] = 1;
+          }
         }
       }
     }
+
     setState(() {
       _data1 = nowData3.isNotEmpty ? nowData3 : {1: 0};
       _data2 = nowData2.isNotEmpty ? nowData2 : {1: 0};
