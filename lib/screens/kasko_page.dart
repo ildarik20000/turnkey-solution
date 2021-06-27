@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/kasko.dart';
-import 'package:turnkey_solution/model/osago.dart';
+import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/model/user.dart';
 import 'package:turnkey_solution/services/data_city_car.dart';
 import 'package:turnkey_solution/services/database.dart';
@@ -69,7 +69,8 @@ class _KaskoPageState extends State<KaskoPage> {
                         width: 140,
                         child: Text(
                           "Информация о кредите ",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 18, color: PlayColors.allWhiteText),
                         ),
                       ),
                       Center(
@@ -83,7 +84,8 @@ class _KaskoPageState extends State<KaskoPage> {
                                 title: const Text(
                                   'без кредита',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter>(
                                   value: SingingCharacter.notBuy,
@@ -104,7 +106,8 @@ class _KaskoPageState extends State<KaskoPage> {
                                 title: const Text(
                                   'с кредитом',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter>(
                                   value: SingingCharacter.buy,
@@ -138,11 +141,13 @@ class _KaskoPageState extends State<KaskoPage> {
                     children: [
                       Text(
                         "Итоговая сумма ",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       ),
                       Text(
                         output,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       )
                     ],
                   ),
@@ -179,7 +184,7 @@ class _KaskoPageState extends State<KaskoPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -199,7 +204,7 @@ class _KaskoPageState extends State<KaskoPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -220,13 +225,13 @@ class _KaskoPageState extends State<KaskoPage> {
           children: [
             Text(
               "Выберите город ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: city,
@@ -271,13 +276,13 @@ class _KaskoPageState extends State<KaskoPage> {
           children: [
             Text(
               "Марка автомобиля ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: car,
@@ -323,14 +328,14 @@ class _KaskoPageState extends State<KaskoPage> {
               width: 140,
               child: Text(
                 "Мощность двигателя ",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
               ),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: enginePower,
@@ -521,7 +526,7 @@ Widget _button(String text, void func()) {
           style: TextStyle(
               fontFamily: 'BebasBook',
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: PlayColors.allWhiteText,
               fontSize: 30)),
       onPressed: () {
         func();

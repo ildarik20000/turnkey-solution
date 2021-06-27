@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/screens/my_services.dart';
 import 'package:turnkey_solution/screens/profile.dart';
 import 'package:turnkey_solution/screens/services_page.dart';
@@ -29,12 +30,12 @@ class _MainScreenState extends State<MainScreen> {
         // ),
 
         bottomNavigationBar: BottomAppBar(
-          color: Colors.white.withOpacity(0.8),
+          color: PlayColors.allWhiteText.withOpacity(0.8),
           shape: CircularNotchedRectangle(),
           child: Container(
             height: 85,
 
-            //color: Colors.white.withOpacity(0.5),
+            //color: PlayColors.allWhiteText.withOpacity(0.5),
             child: Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: Row(

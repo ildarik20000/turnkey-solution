@@ -71,11 +71,13 @@ class _OsagoPageState extends State<OsagoPage> {
                     children: [
                       Text(
                         "Итоговая сумма ",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       ),
                       Text(
                         output,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       )
                     ],
                   ),
@@ -106,7 +108,7 @@ class _OsagoPageState extends State<OsagoPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -123,7 +125,7 @@ class _OsagoPageState extends State<OsagoPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -144,13 +146,13 @@ class _OsagoPageState extends State<OsagoPage> {
           children: [
             Text(
               "Выберите город ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: city,
@@ -195,13 +197,13 @@ class _OsagoPageState extends State<OsagoPage> {
           children: [
             Text(
               "Марка автомобиля ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: car,
@@ -247,14 +249,14 @@ class _OsagoPageState extends State<OsagoPage> {
               width: 140,
               child: Text(
                 "Мощность двигателя ",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
               ),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: enginePower,
@@ -443,7 +445,7 @@ Widget _button(String text, void func()) {
           style: TextStyle(
               fontFamily: 'BebasBook',
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: PlayColors.allWhiteText,
               fontSize: 30)),
       onPressed: () {
         func();

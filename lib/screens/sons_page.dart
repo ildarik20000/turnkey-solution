@@ -66,7 +66,8 @@ class _SonsPageState extends State<SonsPage> {
                         width: 140,
                         child: Text(
                           "Занятие спортом ",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 18, color: PlayColors.allWhiteText),
                         ),
                       ),
                       Center(
@@ -80,7 +81,8 @@ class _SonsPageState extends State<SonsPage> {
                                 title: const Text(
                                   'Да',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter1>(
                                   value: SingingCharacter1.yes,
@@ -101,7 +103,8 @@ class _SonsPageState extends State<SonsPage> {
                                 title: const Text(
                                   'Нет',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter1>(
                                   value: SingingCharacter1.no,
@@ -129,7 +132,8 @@ class _SonsPageState extends State<SonsPage> {
                         width: 140,
                         child: Text(
                           "Стоимость покрытия",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 18, color: PlayColors.allWhiteText),
                         ),
                       ),
                       Center(
@@ -143,7 +147,8 @@ class _SonsPageState extends State<SonsPage> {
                                 title: const Text(
                                   'До 100000',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter2>(
                                   value: SingingCharacter2.first,
@@ -164,7 +169,8 @@ class _SonsPageState extends State<SonsPage> {
                                 title: const Text(
                                   'Более 100000',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: 15,
+                                      color: Color.fromRGBO(43, 78, 155, 1)),
                                 ),
                                 leading: Radio<SingingCharacter2>(
                                   value: SingingCharacter2.second,
@@ -190,11 +196,13 @@ class _SonsPageState extends State<SonsPage> {
                     children: [
                       Text(
                         "Итоговая сумма ",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       ),
                       Text(
                         output,
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18, color: PlayColors.allWhiteText),
                       )
                     ],
                   ),
@@ -224,7 +232,7 @@ class _SonsPageState extends State<SonsPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -240,7 +248,7 @@ class _SonsPageState extends State<SonsPage> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: Colors.red,
-                              textColor: Colors.white,
+                              textColor: PlayColors.allWhiteText,
                               fontSize: 16.0);
                         }
                       }),
@@ -261,13 +269,13 @@ class _SonsPageState extends State<SonsPage> {
           children: [
             Text(
               "Выберите город ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
             ),
             Container(
               width: 170,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: Colors.white,
               ),
               child: DropdownButton<String>(
                 value: city,
@@ -418,7 +426,7 @@ Widget _button(String text, void func()) {
           style: TextStyle(
               fontFamily: 'BebasBook',
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: PlayColors.allWhiteText,
               fontSize: 30)),
       onPressed: () {
         func();

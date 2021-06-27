@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/config/theme.dart';
 
 class Header extends StatelessWidget {
   String text;
@@ -18,20 +19,21 @@ class Header extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      color: Colors.white,
+                      color: PlayColors.allWhiteText,
                     )
                   : Container(),
               Container(
                   padding: EdgeInsets.only(bottom: 5),
                   child: Text(
                     text,
-                    style: TextStyle(fontSize: 25, color: Colors.white70),
+                    style:
+                        TextStyle(fontSize: 25, color: PlayColors.allWhiteText),
                   )),
             ],
           ),
           Divider(
             height: 2,
-            color: Colors.white,
+            color: PlayColors.allWhiteText,
           ),
         ],
       ),

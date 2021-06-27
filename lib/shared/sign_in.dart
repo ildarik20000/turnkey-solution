@@ -29,21 +29,23 @@ class _SignInState extends State<SignIn> {
         child: TextField(
           controller: controller,
           obscureText: obsecure,
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: PlayColors.allWhiteText),
           decoration: InputDecoration(
               hintStyle: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.white70),
+                  color: PlayColors.allWhiteText),
               hintText: hint,
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 3)),
+                  borderSide:
+                      BorderSide(color: PlayColors.allWhiteText, width: 3)),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white54, width: 1)),
+                  borderSide:
+                      BorderSide(color: PlayColors.allWhiteText, width: 1)),
               prefixIcon: Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: IconTheme(
-                    data: IconThemeData(color: Colors.white),
+                    data: IconThemeData(color: PlayColors.allWhiteText),
                     child: icon,
                   ))),
         ));
@@ -94,7 +96,7 @@ class _SignInState extends State<SignIn> {
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
+          textColor: PlayColors.allWhiteText,
           fontSize: 16.0);
     } else {
       _emailController.clear();
@@ -117,7 +119,7 @@ class _SignInState extends State<SignIn> {
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
+          textColor: PlayColors.allWhiteText,
           fontSize: 16.0);
     } else {
       _emailController.clear();
@@ -134,7 +136,7 @@ class _SignInState extends State<SignIn> {
           style: TextStyle(
               fontFamily: 'BebasBook',
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: PlayColors.allWhiteText,
               fontSize: 30)),
       onPressed: () {
         func();

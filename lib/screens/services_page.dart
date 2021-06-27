@@ -24,7 +24,7 @@ class ServicesPage extends StatelessWidget {
           ),
           Divider(
             height: 2,
-            color: Colors.white,
+            color: PlayColors.allWhiteText,
           ),
           _blockInfo(
               "Здоровье", "Консультация врача", "Консультация психолога"),
@@ -45,7 +45,7 @@ Widget _blockInfo(
     //alignment: Alignment.topLeft,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      color: Colors.white60,
+      color: PlayColors.allWhiteText.withOpacity(0.6),
     ),
     child: Container(
       padding: EdgeInsets.all(9),

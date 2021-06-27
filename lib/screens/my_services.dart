@@ -36,8 +36,12 @@ class _MyServicesState extends State<MyServices> {
         backgroundColor: PlayColors.background,
         appBar: AppBar(
           backgroundColor: PlayColors.background,
-          title: const Text('Мои полисы'),
+          title: const Text(
+            'Мои полисы',
+            style: TextStyle(color: Colors.blue),
+          ),
           bottom: const TabBar(
+            labelColor: Colors.blue,
             tabs: <Widget>[
               Tab(
                 text: "ОСАГО",
@@ -193,7 +197,7 @@ class _MyServicesState extends State<MyServices> {
       //alignment: Alignment.topLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: PlayColors.allWhiteText,
       ),
       child: Container(
         padding: EdgeInsets.all(9),
@@ -245,7 +249,7 @@ class _MyServicesState extends State<MyServices> {
       //alignment: Alignment.topLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: PlayColors.allWhiteText,
       ),
       child: Container(
         padding: EdgeInsets.all(9),
@@ -289,7 +293,7 @@ class _MyServicesState extends State<MyServices> {
       //alignment: Alignment.topLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: PlayColors.allWhiteText,
       ),
       child: Container(
         padding: EdgeInsets.all(9),

@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
                     _button("Сохранить", () => _saveInfo()),
                     Divider(
                       height: 2,
-                      color: Colors.white,
+                      color: PlayColors.allWhiteText,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -149,7 +149,7 @@ Widget _button(String text, void func()) {
         style: TextStyle(
             fontFamily: 'BebasBook',
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: PlayColors.allWhiteText,
             fontSize: 30)),
     onPressed: () {
       func();

@@ -40,9 +40,13 @@ class _AdminPageState extends State<AdminPage> {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Админ панель'),
+              Text(
+                'Админ панель',
+                style: TextStyle(color: Color.fromRGBO(43, 78, 155, 1)),
+              ),
               IconButton(
                 icon: Icon(Icons.exit_to_app),
+                color: Color.fromRGBO(43, 78, 155, 1),
                 onPressed: () {
                   setState(() {
                     AuthService().logOut();
@@ -52,6 +56,7 @@ class _AdminPageState extends State<AdminPage> {
             ],
           )),
           bottom: const TabBar(
+            labelColor: Color.fromRGBO(43, 78, 155, 1),
             tabs: <Widget>[
               Tab(
                 text: "Без покупок полисов",
@@ -144,7 +149,7 @@ class _AdminPageState extends State<AdminPage> {
       //alignment: Alignment.topLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: Colors.blue,
       ),
       child: Container(
         padding: EdgeInsets.all(9),
@@ -155,7 +160,7 @@ class _AdminPageState extends State<AdminPage> {
             Text(
               seName + " " + name + " " + lastName,
               style: TextStyle(
-                color: Colors.black54,
+                color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

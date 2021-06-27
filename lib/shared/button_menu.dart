@@ -99,14 +99,14 @@ class _ButtonMenuState extends State<ButtonMenu> {
                         height: this.widget.active ? 47 + sizeActive + 5 : 47,
                         decoration: BoxDecoration(
                             color: this.widget.active
-                                ? PlayColors.red
-                                : Colors.white.withOpacity(0.6),
+                                ? Colors.white
+                                : PlayColors.allWhiteText.withOpacity(0.6),
                             borderRadius: BorderRadius.circular(40)),
                         child: Icon(
                           this.widget.icon,
                           color: this.widget.active
-                              ? Colors.white
-                              : PlayColors.black100,
+                              ? PlayColors.allWhiteText
+                              : Colors.white,
                           size: this.widget.active ? 25 + sizeActive + 5 : 25,
                         ),
                       ),

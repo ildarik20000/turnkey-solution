@@ -4,8 +4,10 @@ ThemeData playTheme =
     ThemeData(fontFamily: 'BebasBold', backgroundColor: PlayColors.background);
 
 class PlayColors {
-  static Color background = Color.fromRGBO(52, 54, 75, 1);
+  static Color background = Color.fromRGBO(244, 246, 252, 1);
   static Color red = Color.fromRGBO(178, 34, 34, 1);
+
+  static Color allWhiteText = Color.fromRGBO(43, 78, 155, 1);
 
   static Color black100 = Color.fromRGBO(40, 40, 40, 1);
   static Color black50 = Color.fromRGBO(40, 40, 40, 0.5);

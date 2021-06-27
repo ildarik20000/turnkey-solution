@@ -58,7 +58,7 @@ class _InputState extends State<Input> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8), topRight: Radius.circular(8))),
             child: Container(
-              color: Colors.white60,
+              color: Colors.white,
               child: Stack(
                 children: <Widget>[
                   TextField(

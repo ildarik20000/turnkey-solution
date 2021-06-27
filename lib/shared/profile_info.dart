@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turnkey_solution/config/theme.dart';
 import 'package:turnkey_solution/shared/input.dart';
 
 class TextInfo extends StatelessWidget {
@@ -25,7 +26,7 @@ class TextInfo extends StatelessWidget {
               width: widthWidget,
               child: Text(
                 this.text,
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18, color: PlayColors.allWhiteText),
               )),
           Container(
             padding: EdgeInsets.only(left: 8),

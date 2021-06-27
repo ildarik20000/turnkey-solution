@@ -41,7 +41,7 @@ class ButtonWithIcon extends StatelessWidget {
                 border: Border(
                     bottom: BorderSide(
                         color: !this.hideDivider
-                            ? PlayColors.black12
+                            ? Colors.blue
                             : Colors.transparent,
                         width: 1))),
             child: Row(
@@ -50,7 +50,7 @@ class ButtonWithIcon extends StatelessWidget {
                 this.icon != null
                     ? Icon(
                         this.icon,
-                        color: this.color ?? PlayColors.placeholder,
+                        color: this.color ?? Colors.blue,
                       )
                     : null,
                 Expanded(
@@ -60,7 +60,7 @@ class ButtonWithIcon extends StatelessWidget {
                       this.text,
                       style: TextStyle(
                           fontSize: 18,
-                          color: this.color ?? PlayColors.placeholder,
+                          color: this.color ?? Colors.blue,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

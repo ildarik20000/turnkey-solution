@@ -97,7 +97,7 @@ class _ButtonState extends State<Button> {
                       fontFamily: 'BebasBook',
                       color: this.widget.isPale
                           ? PlayColors.red
-                          : Color(0xffffffff),
+                          : PlayColors.allWhiteText,
                       fontSize: widget.fontSizeText,
                       fontWeight: FontWeight.bold),
                 ),
